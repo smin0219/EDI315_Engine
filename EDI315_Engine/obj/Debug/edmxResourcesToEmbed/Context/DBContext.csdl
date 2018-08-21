@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Context" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EDI_Messages" EntityType="Context.EDI_Messages" />
+    <EntitySet Name="EDI315" EntityType="Context.EDI315" />
+    <EntitySet Name="EDI315_Detail" EntityType="Context.EDI315_Detail" />
+    <EntitySet Name="EDI315_Detail_N9" EntityType="Context.EDI315_Detail_N9" />
+    <EntitySet Name="EDI315_Detail_R4" EntityType="Context.EDI315_Detail_R4" />
+    <EntitySet Name="EDI315_Detail_R4_DTM" EntityType="Context.EDI315_Detail_R4_DTM" />
+    <EntitySet Name="Engines_Log" EntityType="Context.Engines_Log" />
+    <AssociationSet Name="FK_245" Association="Context.FK_245">
+      <End Role="EDI315" EntitySet="EDI315" />
+      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_160" Association="Context.FK_160">
+      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+      <End Role="EDI315_Detail_N9" EntitySet="EDI315_Detail_N9" />
+    </AssociationSet>
+    <AssociationSet Name="FK_174" Association="Context.FK_174">
+      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+      <End Role="EDI315_Detail_R4" EntitySet="EDI315_Detail_R4" />
+    </AssociationSet>
+    <AssociationSet Name="FK_190" Association="Context.FK_190">
+      <End Role="EDI315_Detail_R4" EntitySet="EDI315_Detail_R4" />
+      <End Role="EDI315_Detail_R4_DTM" EntitySet="EDI315_Detail_R4_DTM" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EDI_Messages">
+    <Key>
+      <PropertyRef Name="msg_idnum" />
+    </Key>
+    <Property Name="msg_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_type" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="msg_body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="received_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="process_status" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EDI315">
+    <Key>
+      <PropertyRef Name="EDI315_idnum" />
+    </Key>
+    <Property Name="EDI315_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_idnum" Type="Int32" Nullable="false" />
+    <Property Name="ISA_auth_info_qualifier" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_auth_info" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_security_info_qualifier" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_security_info" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_id_qualifier_1" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_sender_id" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_id_qualifier_2" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_receiver_id" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchage_date" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_time" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_control_standards_id" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_control_version_number" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_interchange_control_number" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_ack_requested" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_usage_indicator" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="ISA_component_element_separator" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="GS_functional_id_code" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="GS_app_sender_code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="GS_app_receiver_code" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="GS_date" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="GS_time" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="GS_group_control_number" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="GS_reponsible_agency_code" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="GS_industry_id_code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EDI315_Detail" Relationship="Context.FK_245" FromRole="EDI315" ToRole="EDI315_Detail" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail">
+    <Key>
+      <PropertyRef Name="EDI315_Detail_idnum" />
+    </Key>
+    <Property Name="EDI315_Detail_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_idnum" Type="Int32" Nullable="false" />
+    <Property Name="EDI315_idnum" Type="Int32" Nullable="false" />
+    <Property Name="B4_SHC" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="B4_request_number" Type="Int32" />
+    <Property Name="B4_status_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="B4_date" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="B4_status_time" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="B4_status_location" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="B4_equip_initial" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="B4_equip_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="B4_equip_status_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="B4_equip_type" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="B4_location_code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="B4_location_id" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="B4_equip_check_digit" Type="Int32" />
+    <Property Name="Q2_vessel_code" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_country_code" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_date_1" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_date_2" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_date_3" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_lading_quantity" Type="Int32" />
+    <Property Name="Q2_weight" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Q2_weight_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_voyage_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_reference_id_qualifier" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_reference_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_vessel_code_qualifier" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_vessel_name" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_volume" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Q2_volume_unit_qualifier" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Q2_weight_unit_code" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="SE_included_segments_number" Type="Int32" Nullable="false" />
+    <Property Name="SE_transaction_set_control_number" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EDI315" Relationship="Context.FK_245" FromRole="EDI315_Detail" ToRole="EDI315" />
+    <NavigationProperty Name="EDI315_Detail_N9" Relationship="Context.FK_160" FromRole="EDI315_Detail" ToRole="EDI315_Detail_N9" />
+    <NavigationProperty Name="EDI315_Detail_R4" Relationship="Context.FK_174" FromRole="EDI315_Detail" ToRole="EDI315_Detail_R4" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail_N9">
+    <Key>
+      <PropertyRef Name="Detail_N9_idnum" />
+    </Key>
+    <Property Name="Detail_N9_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_idnum" Type="Int32" Nullable="false" />
+    <Property Name="EDI315_Detail_idnum" Type="Int32" Nullable="false" />
+    <Property Name="reference_id_qualifier" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="reference_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="free_form_description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="time_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EDI315_Detail" Relationship="Context.FK_160" FromRole="EDI315_Detail_N9" ToRole="EDI315_Detail" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail_R4">
+    <Key>
+      <PropertyRef Name="Detail_R4_idnum" />
+    </Key>
+    <Property Name="Detail_R4_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_idnum" Type="Int32" Nullable="false" />
+    <Property Name="EDI315_Detail_idnum" Type="Int32" Nullable="false" />
+    <Property Name="port_function_code" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="location_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="location_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="port_name" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Name="country_code" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="terminal_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="pier_number" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="province_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EDI315_Detail" Relationship="Context.FK_174" FromRole="EDI315_Detail_R4" ToRole="EDI315_Detail" />
+    <NavigationProperty Name="EDI315_Detail_R4_DTM" Relationship="Context.FK_190" FromRole="EDI315_Detail_R4" ToRole="EDI315_Detail_R4_DTM" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail_R4_DTM">
+    <Key>
+      <PropertyRef Name="Detail_R4_DTM_idnum" />
+    </Key>
+    <Property Name="Detail_R4_DTM_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_idnum" Type="Int32" Nullable="false" />
+    <Property Name="Detail_R4_idnum" Type="Int32" Nullable="false" />
+    <Property Name="datetime_qualifier" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="time" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="time_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EDI315_Detail_R4" Relationship="Context.FK_190" FromRole="EDI315_Detail_R4_DTM" ToRole="EDI315_Detail_R4" />
+  </EntityType>
+  <EntityType Name="Engines_Log">
+    <Key>
+      <PropertyRef Name="log_id" />
+    </Key>
+    <Property Name="log_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg_type" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="msg_idnum" Type="Int32" />
+    <Property Name="EDI_idnum" Type="Int32" />
+    <Property Name="Detail_idnum" Type="Int32" />
+    <Property Name="log_msg" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_245">
+    <End Type="Context.EDI315" Role="EDI315" Multiplicity="1" />
+    <End Type="Context.EDI315_Detail" Role="EDI315_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315">
+        <PropertyRef Name="EDI315_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail">
+        <PropertyRef Name="EDI315_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_160">
+    <End Type="Context.EDI315_Detail" Role="EDI315_Detail" Multiplicity="1" />
+    <End Type="Context.EDI315_Detail_N9" Role="EDI315_Detail_N9" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315_Detail">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail_N9">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_174">
+    <End Type="Context.EDI315_Detail" Role="EDI315_Detail" Multiplicity="1" />
+    <End Type="Context.EDI315_Detail_R4" Role="EDI315_Detail_R4" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315_Detail">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail_R4">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_190">
+    <End Type="Context.EDI315_Detail_R4" Role="EDI315_Detail_R4" Multiplicity="1" />
+    <End Type="Context.EDI315_Detail_R4_DTM" Role="EDI315_Detail_R4_DTM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315_Detail_R4">
+        <PropertyRef Name="Detail_R4_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail_R4_DTM">
+        <PropertyRef Name="Detail_R4_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,28 @@
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EDI315_Engine.exe.config
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EDI315_Engine.exe
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EDI315_Engine.pdb
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.dll
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.SqlServer.dll
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.xml
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.SqlServer.xml
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.csprojResolveAssemblyReference.cache
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.mainForm.resources
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.Properties.Resources.resources
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.csproj.GenerateResource.Cache
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.exe
+C:\NA\05 Billiant\00 Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.pdb
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EDI315_Engine.exe.config
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EDI315_Engine.exe
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EDI315_Engine.pdb
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.dll
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.xml
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.csprojAssemblyReference.cache
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.mainForm.resources
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.Properties.Resources.resources
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.csproj.GenerateResource.cache
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.csproj.CoreCompileInputs.cache
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.csproj.CopyComplete
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.exe
+C:\Users\Sung Jae Jacob Min\Jacob\Brilliant\Engine\EDI315_Engine\EDI315_Engine\obj\Debug\EDI315_Engine.pdb

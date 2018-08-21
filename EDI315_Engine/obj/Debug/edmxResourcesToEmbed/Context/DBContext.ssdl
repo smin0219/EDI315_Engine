@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Context.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EDI_Messages">
+    <Key>
+      <PropertyRef Name="msg_idnum" />
+    </Key>
+    <Property Name="msg_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_type" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="msg_body" Type="varchar(max)" Nullable="false" />
+    <Property Name="received_date" Type="datetime" Nullable="false" />
+    <Property Name="file_name" Type="varchar" MaxLength="50" />
+    <Property Name="process_status" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EDI315">
+    <Key>
+      <PropertyRef Name="EDI315_idnum" />
+    </Key>
+    <Property Name="EDI315_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_idnum" Type="int" Nullable="false" />
+    <Property Name="ISA_auth_info_qualifier" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="ISA_auth_info" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ISA_security_info_qualifier" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="ISA_security_info" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="ISA_interchange_id_qualifier_1" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="ISA_interchange_sender_id" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="ISA_interchange_id_qualifier_2" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="ISA_interchange_receiver_id" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="ISA_interchage_date" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="ISA_interchange_time" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="ISA_interchange_control_standards_id" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="ISA_interchange_control_version_number" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="ISA_interchange_control_number" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="ISA_ack_requested" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="ISA_usage_indicator" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="ISA_component_element_separator" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="GS_functional_id_code" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="GS_app_sender_code" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="GS_app_receiver_code" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="GS_date" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="GS_time" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="GS_group_control_number" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="GS_reponsible_agency_code" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="GS_industry_id_code" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail">
+    <Key>
+      <PropertyRef Name="EDI315_Detail_idnum" />
+    </Key>
+    <Property Name="EDI315_Detail_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_idnum" Type="int" Nullable="false" />
+    <Property Name="EDI315_idnum" Type="int" Nullable="false" />
+    <Property Name="B4_SHC" Type="varchar" MaxLength="3" />
+    <Property Name="B4_request_number" Type="int" />
+    <Property Name="B4_status_code" Type="varchar" MaxLength="2" />
+    <Property Name="B4_date" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="B4_status_time" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="B4_status_location" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="B4_equip_initial" Type="varchar" MaxLength="4" />
+    <Property Name="B4_equip_number" Type="varchar" MaxLength="10" />
+    <Property Name="B4_equip_status_code" Type="varchar" MaxLength="2" />
+    <Property Name="B4_equip_type" Type="varchar" MaxLength="4" />
+    <Property Name="B4_location_code" Type="varchar" MaxLength="30" />
+    <Property Name="B4_location_id" Type="varchar" MaxLength="2" />
+    <Property Name="B4_equip_check_digit" Type="int" />
+    <Property Name="Q2_vessel_code" Type="varchar" MaxLength="8" />
+    <Property Name="Q2_country_code" Type="varchar" MaxLength="3" />
+    <Property Name="Q2_date_1" Type="varchar" MaxLength="8" />
+    <Property Name="Q2_date_2" Type="varchar" MaxLength="8" />
+    <Property Name="Q2_date_3" Type="varchar" MaxLength="8" />
+    <Property Name="Q2_lading_quantity" Type="int" />
+    <Property Name="Q2_weight" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Q2_weight_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="Q2_voyage_number" Type="varchar" MaxLength="10" />
+    <Property Name="Q2_reference_id_qualifier" Type="varchar" MaxLength="3" />
+    <Property Name="Q2_reference_id" Type="varchar" MaxLength="30" />
+    <Property Name="Q2_vessel_code_qualifier" Type="varchar" MaxLength="1" />
+    <Property Name="Q2_vessel_name" Type="varchar" MaxLength="28" />
+    <Property Name="Q2_volume" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Q2_volume_unit_qualifier" Type="varchar" MaxLength="1" />
+    <Property Name="Q2_weight_unit_code" Type="varchar" MaxLength="1" />
+    <Property Name="SE_included_segments_number" Type="int" Nullable="false" />
+    <Property Name="SE_transaction_set_control_number" Type="varchar" MaxLength="9" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail_N9">
+    <Key>
+      <PropertyRef Name="Detail_N9_idnum" />
+    </Key>
+    <Property Name="Detail_N9_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_idnum" Type="int" Nullable="false" />
+    <Property Name="EDI315_Detail_idnum" Type="int" Nullable="false" />
+    <Property Name="reference_id_qualifier" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="reference_id" Type="varchar" MaxLength="30" />
+    <Property Name="free_form_description" Type="varchar" MaxLength="45" />
+    <Property Name="date" Type="varchar" MaxLength="8" />
+    <Property Name="time" Type="varchar" MaxLength="8" />
+    <Property Name="time_code" Type="varchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail_R4">
+    <Key>
+      <PropertyRef Name="Detail_R4_idnum" />
+    </Key>
+    <Property Name="Detail_R4_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_idnum" Type="int" Nullable="false" />
+    <Property Name="EDI315_Detail_idnum" Type="int" Nullable="false" />
+    <Property Name="port_function_code" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="location_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="location_id" Type="varchar" MaxLength="30" />
+    <Property Name="port_name" Type="varchar" MaxLength="24" />
+    <Property Name="country_code" Type="varchar" MaxLength="3" />
+    <Property Name="terminal_name" Type="varchar" MaxLength="30" />
+    <Property Name="pier_number" Type="varchar" MaxLength="4" />
+    <Property Name="province_code" Type="varchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="EDI315_Detail_R4_DTM">
+    <Key>
+      <PropertyRef Name="Detail_R4_DTM_idnum" />
+    </Key>
+    <Property Name="Detail_R4_DTM_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_idnum" Type="int" Nullable="false" />
+    <Property Name="Detail_R4_idnum" Type="int" Nullable="false" />
+    <Property Name="datetime_qualifier" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="8" />
+    <Property Name="time" Type="varchar" MaxLength="4" />
+    <Property Name="time_code" Type="varchar" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="Engines_Log">
+    <Key>
+      <PropertyRef Name="log_id" />
+    </Key>
+    <Property Name="log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg_type" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="msg_idnum" Type="int" />
+    <Property Name="EDI_idnum" Type="int" />
+    <Property Name="Detail_idnum" Type="int" />
+    <Property Name="log_msg" Type="varchar(max)" Nullable="false" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_160">
+    <End Role="EDI315_Detail" Type="Self.EDI315_Detail" Multiplicity="1" />
+    <End Role="EDI315_Detail_N9" Type="Self.EDI315_Detail_N9" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315_Detail">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail_N9">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_174">
+    <End Role="EDI315_Detail" Type="Self.EDI315_Detail" Multiplicity="1" />
+    <End Role="EDI315_Detail_R4" Type="Self.EDI315_Detail_R4" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315_Detail">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail_R4">
+        <PropertyRef Name="EDI315_Detail_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_190">
+    <End Role="EDI315_Detail_R4" Type="Self.EDI315_Detail_R4" Multiplicity="1" />
+    <End Role="EDI315_Detail_R4_DTM" Type="Self.EDI315_Detail_R4_DTM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315_Detail_R4">
+        <PropertyRef Name="Detail_R4_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail_R4_DTM">
+        <PropertyRef Name="Detail_R4_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_245">
+    <End Role="EDI315" Type="Self.EDI315" Multiplicity="1" />
+    <End Role="EDI315_Detail" Type="Self.EDI315_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EDI315">
+        <PropertyRef Name="EDI315_idnum" />
+      </Principal>
+      <Dependent Role="EDI315_Detail">
+        <PropertyRef Name="EDI315_idnum" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ContextStoreContainer">
+    <EntitySet Name="EDI_Messages" EntityType="Self.EDI_Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EDI315" EntityType="Self.EDI315" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EDI315_Detail" EntityType="Self.EDI315_Detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EDI315_Detail_N9" EntityType="Self.EDI315_Detail_N9" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EDI315_Detail_R4" EntityType="Self.EDI315_Detail_R4" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EDI315_Detail_R4_DTM" EntityType="Self.EDI315_Detail_R4_DTM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Engines_Log" EntityType="Self.Engines_Log" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_160" Association="Self.FK_160">
+      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+      <End Role="EDI315_Detail_N9" EntitySet="EDI315_Detail_N9" />
+    </AssociationSet>
+    <AssociationSet Name="FK_174" Association="Self.FK_174">
+      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+      <End Role="EDI315_Detail_R4" EntitySet="EDI315_Detail_R4" />
+    </AssociationSet>
+    <AssociationSet Name="FK_190" Association="Self.FK_190">
+      <End Role="EDI315_Detail_R4" EntitySet="EDI315_Detail_R4" />
+      <End Role="EDI315_Detail_R4_DTM" EntitySet="EDI315_Detail_R4_DTM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_245" Association="Self.FK_245">
+      <End Role="EDI315" EntitySet="EDI315" />
+      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

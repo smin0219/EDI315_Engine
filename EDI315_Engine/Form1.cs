@@ -58,5 +58,10 @@ namespace EDI315_Engine
             listbox_result.Items.Add(strItem);
             listbox_result.Refresh();
         }
+
+        private void listbox_result_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

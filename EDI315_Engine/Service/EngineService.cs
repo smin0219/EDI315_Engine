@@ -12,7 +12,7 @@ namespace EDI315_Engine
 {
     public class EngineService
     {
-        protected EDI315MsgParsing edi315MsgParsing;
+        protected MessageParsing messageParsing;
         protected Util util;
         protected DBContext context;
 
@@ -23,92 +23,26 @@ namespace EDI315_Engine
         public EngineService()
         {
             util = new Util();
-            edi315MsgParsing = new EDI315MsgParsing();
+            messageParsing = new MessageParsing();
             context = new DBContext();
         }
 
         public void RunEngine(string msgType)
         {
-            List<EDI_Messages> ediMsgList = getMessages(msgType);
-
-            if(ediMsgList != null && ediMsgList.Count() > 0)
-            {
-                foreach(EDI_Messages dbRow in ediMsgList)
-                {
-                    // clear process before
-                    checkDataExists(dbRow.msg_idnum, dbRow.msg_type);
-                    bool result = edi315MsgParsing.MeesageParsing(msgType, dbRow.msg_body, dbRow.msg_idnum);
-
-                    if(result)
-                    {
-                        updateMSGStatus(dbRow.msg_idnum, msgType, "Y");
-                        addListItemMainForm(dbRow .file_name + " proccessed - " + DateTime.Now);
-                    }
-                    else
-                    {
-                        updateMSGStatus(dbRow.msg_idnum, msgType, "E");
-                        addListItemMainForm(dbRow.file_name + " error - " + DateTime.Now);
-                    }
-                }
-            }
-            else
-            {
-                addListItemMainForm("No message - " + DateTime.Now);
-            }
+            List<EDI_Messages> ediMsgList = GetMessage(msgType);
         }
 
-        private List<EDI_Messages> getMessages(string msgType)
+        private List<EDI_Messages> GetMessage(string msgType)
         {
             List<EDI_Messages> list = new List<EDI_Messages>();
+
             try
             {
-                if(util.dbConnectionCheck())
-                {
-                    using (DBContext context = new DBContext())
-                    {
-                        list = context.EDI_Messages.Where(x => x.msg_type == msgType && x.process_status == "N").ToList();
 
-                        /* DB context. END. */
-                        context.Dispose();
-                    }
-                }
-                else
-                {
-                    string logMsg = "Date: " + DateTime.Now.ToString();
-                    logMsg += "\r\nFunction: getMessages";
-                    logMsg += "\r\nError Message: Not able to access DB.";
-                    util.insertLog_TextFile(logMsg);
-                }
             }
-            catch (DbEntityValidationException ex)
+            catch
             {
-                string logMsg = "Date: " + DateTime.Now.ToString();
-                logMsg += "\r\nFunction: getMessages";
-                logMsg += "\r\nError Message: ";
 
-                foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
-                {
-                    // Get entry
-                    DbEntityEntry entry = item.Entry;
-                    string entityTypeName = entry.Entity.GetType().Name;
-
-                    foreach (DbValidationError subItem in item.ValidationErrors)
-                    {
-                        logMsg += string.Format("\r\nError '{0}' occurred in {1} at {2}", subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                    }
-                }
-
-                util.insertLog(msgType, 0, 0, 0, logMsg);
-            }
-            catch (Exception ex)
-            {
-                string logMsg = "Date: " + DateTime.Now.ToString();
-                logMsg += "\r\nFunction: getMessages";
-                logMsg += "\r\nError Message: \r\n";
-                logMsg += ex.ToString();
-
-                util.insertLog(msgType, 0, 0, 0, logMsg);
-                list = new List<EDI_Messages>();
             }
             return list;
         }
@@ -159,7 +93,7 @@ namespace EDI315_Engine
                 }
 
                 util.insertLog(msgType, msg_idnum, 0, 0, logMsg);
-                edi315MsgParsing.rollbackProcess(msg_idnum, msgType, "");
+                messageParsing.rollbackProcess(msg_idnum, msgType, "");
                 #endregion
             }
             catch (Exception ex)
@@ -170,7 +104,7 @@ namespace EDI315_Engine
                 logMsg += "\r\nError Message: \r\n";
                 logMsg += ex.ToString();
                 util.insertLog(msgType, msg_idnum, 0, 0, logMsg);
-                edi315MsgParsing.rollbackProcess(msg_idnum, msgType, "");
+                messageParsing.rollbackProcess(msg_idnum, msgType, "");
                 #endregion
             }
         }
@@ -181,7 +115,7 @@ namespace EDI315_Engine
                 using (DBContext context = new DBContext())
                 {
                     if(context.EDI315.Where(x=>x.msg_idnum == msg_idnum).Any())
-                        edi315MsgParsing.rollbackProcess(msg_idnum, msg_type, "");
+                        messageParsing.rollbackProcess(msg_idnum, msg_type, "");
 
                     context.Dispose();
                 }

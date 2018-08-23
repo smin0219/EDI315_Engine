@@ -54,6 +54,7 @@
             this.listbox_result.Name = "listbox_result";
             this.listbox_result.Size = new System.Drawing.Size(260, 147);
             this.listbox_result.TabIndex = 1;
+            this.listbox_result.SelectedIndexChanged += new System.EventHandler(this.listbox_result_SelectedIndexChanged);
             // 
             // timer_mainTimer
             // 

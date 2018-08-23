@@ -96,7 +96,7 @@
     <Compile Include="Context\Engines_Log.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Service\EDI315MsgParsing.cs" />
+    <Compile Include="Entity\Class1.cs" />
     <Compile Include="Service\EngineService.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -104,6 +104,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service\MessageParsing.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

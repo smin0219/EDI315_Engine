@@ -25,12 +25,9 @@ namespace EDI315_Engine.Context
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Activity_Place> Activity_Place { get; set; }
+        public virtual DbSet<Container> Container { get; set; }
         public virtual DbSet<EDI_Messages> EDI_Messages { get; set; }
-        public virtual DbSet<EDI315> EDI315 { get; set; }
-        public virtual DbSet<EDI315_Detail> EDI315_Detail { get; set; }
-        public virtual DbSet<EDI315_Detail_N9> EDI315_Detail_N9 { get; set; }
-        public virtual DbSet<EDI315_Detail_R4> EDI315_Detail_R4 { get; set; }
-        public virtual DbSet<EDI315_Detail_R4_DTM> EDI315_Detail_R4_DTM { get; set; }
         public virtual DbSet<Engines_Log> Engines_Log { get; set; }
     }
 }

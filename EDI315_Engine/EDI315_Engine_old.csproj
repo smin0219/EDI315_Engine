@@ -96,7 +96,11 @@
     <Compile Include="Context\Engines_Log.cs">
       <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Class1.cs" />
+    <Compile Include="Entity\B4.cs" />
+    <Compile Include="Entity\DTM.cs" />
+    <Compile Include="Entity\Q2.cs" />
+    <Compile Include="Entity\N9.cs" />
+    <Compile Include="Entity\R4.cs" />
     <Compile Include="Service\EngineService.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

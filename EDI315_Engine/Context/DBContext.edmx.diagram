@@ -5,17 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8d89671481c4457296ce50959ca52e0f" Name="Diagram1">
-        <EntityTypeShape EntityType="Context.EDI_Messages" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Context.EDI315" Width="1.5" PointX="0.75" PointY="2.125" />
-        <EntityTypeShape EntityType="Context.EDI315_Detail" Width="1.5" PointX="3" PointY="1.25" />
-        <EntityTypeShape EntityType="Context.EDI315_Detail_N9" Width="1.5" PointX="5.25" PointY="1.75" />
-        <EntityTypeShape EntityType="Context.EDI315_Detail_R4" Width="1.5" PointX="5.25" PointY="5.375" />
-        <EntityTypeShape EntityType="Context.EDI315_Detail_R4_DTM" Width="1.5" PointX="7.5" PointY="5.875" />
-        <EntityTypeShape EntityType="Context.Engines_Log" Width="1.5" PointX="9.75" PointY="0.75" />
-        <AssociationConnector Association="Context.FK_245" />
-        <AssociationConnector Association="Context.FK_160" />
-        <AssociationConnector Association="Context.FK_174" />
-        <AssociationConnector Association="Context.FK_190" />
+        <EntityTypeShape EntityType="Context.Activity_Place" Width="1.5" PointX="3" PointY="15.625" />
+        <EntityTypeShape EntityType="Context.Container" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="Context.EDI_Messages" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Context.Engines_Log" Width="1.5" PointX="2.75" PointY="3.75" />
+        <AssociationConnector Association="Context.FK_1165" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

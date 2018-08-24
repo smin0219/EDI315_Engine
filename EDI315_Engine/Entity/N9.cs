@@ -8,14 +8,17 @@ namespace EDI315_Engine.Entity
 {
     class N9
     {
-        string MBL_number { get; set; }
-        string container_number { get; set; }
-        string booking_number { get; set; }
-        string seal_number { get; set; }
-        string service_type { get; set; }
-        string shipper_reference_number { get; set; }
-        string pickup_number { get; set; }
-        string purchase_order_number { get; set; }
-        string IT_number { get; set; }
+        //N901
+        char[] reference_identification_qualifier { get; set; }
+        //N902
+        string reference_identification { get; set; }
+        //N903
+        string free_form_description { get; set; }
+        //N904
+        string date { get; set; }
+        //N905
+        string time { get; set; }
+        //N906
+        string time_code { get; set; }
     }
 }

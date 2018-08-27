@@ -14,18 +14,22 @@ namespace EDI315_Engine
     {
         protected DBContext context;
 
-        string FileLocation = @"C:\Engines_Log";
-        string FileName = "315_log_";
-
         public Util()
         {
             context = new DBContext();
         }
-        public bool dbConnectionCheck()
+
+        /// <summary>
+        /// Check DB Connection. If there is a connection problem, 
+        /// leave log messages and try to connect again after 30 min.
+        /// </summary>
+        /// <returns>True: If it is connected, otherwise return False</returns>
+
+        public bool checkDBConnection()
         {
             bool isConnected = false;
-
             int checkCount = 0;
+
             while (checkCount < 5)
             {
                 try
@@ -39,55 +43,43 @@ namespace EDI315_Engine
                         break;
                     }
                 }
-                catch (DbEntityValidationException ex)
-                {
-                    checkCount++;
-
-                    string logMsg = "Date: " + DateTime.Now.ToString();
-                    logMsg += "\r\nFunction: dbConnectionCheck";
-                    logMsg += "\r\nAttempt Count: " + checkCount + " / 5";
-
-                    foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
-                    {
-                        // Get entry
-                        DbEntityEntry entry = item.Entry;
-                        string entityTypeName = entry.Entity.GetType().Name;
-
-                        foreach (DbValidationError subItem in item.ValidationErrors)
-                        {
-                            logMsg += string.Format("\r\nError '{0}' occurred in {1} at {2}", subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                        }
-                    }
-
-                    insertLog_TextFile(logMsg);
-
-                    // 30 min wait
-                    System.Threading.Thread.Sleep((1000 * 60) * 30);
-                }
                 catch (Exception ex)
                 {
                     checkCount++;
 
-                    // create text file
+                    // Create a text file if it does not exist to leave log.
                     string logMsg = "Date: " + DateTime.Now.ToString();
-                    logMsg += "\r\nFunction: dbConnectionCheck";
+                    logMsg += "\r\nFunction: checkDBConnection";
                     logMsg += "\r\nAttempt Count: " + checkCount + " / 5";
                     logMsg += "\r\nError Message: \r\n" + ex.ToString();
-                    insertLog_TextFile(logMsg);
+                    logMsg += "\r\n\r\n=====================================================================";
+                    logMsg += "=============================================================================";
+                    logMsg += "=============================================================================";
+                    insertLog_text(logMsg);
 
-                    // 30 min wait
-                    System.Threading.Thread.Sleep((1000 * 60) * 30);
+                    // Wait for 30 min and try again
+                    //System.Threading.Thread.Sleep((1000 * 60) * 30);
                 }
             }
             return isConnected;
         }
-        public void insertLog(string msgType, int msg_idnum, int EDI_idnum, int Detail_idnum, string logMsg)
+
+        /// <summary>
+        /// Insert log messages to the DB
+        /// </summary>
+        /// <param name="msgType"></param>
+        /// <param name="msg_idnum"></param>
+        /// <param name="EDI_idnum"></param>
+        /// <param name="Detail_idnum"></param>
+        /// <param name="logMsg"></param>
+
+        public void insertLog_DB(string msgType, int msg_idnum, int EDI_idnum, int Detail_idnum, string logMsg)
         {
-            if (dbConnectionCheck())
+            if (checkDBConnection())
             {
                 using (DBContext context = new DBContext())
                 {
-                    Engines_Log dbLog = new Engines_Log()
+                    Engines_Log DBLog = new Engines_Log()
                     {
                         msg_type = msgType,
                         msg_idnum = (msg_idnum != 0 ? (int?)msg_idnum : null),
@@ -96,32 +88,24 @@ namespace EDI315_Engine
                         log_msg = logMsg,
                         created_date = DateTime.Now
                     };
-                    context.Engines_Log.Add(dbLog);
+                    context.Engines_Log.Add(DBLog);
                     context.SaveChanges();
                     context.Dispose();
                 }
             }
-            else
-            {
-                logMsg += "\r\nValues Info:";
-                logMsg += "\r\nmstType: " + msgType;
-
-                if (msg_idnum != 0)
-                    logMsg += "\r\nmsg_idnum: " + msg_idnum;
-
-                if (EDI_idnum != 0)
-                    logMsg += "\r\nEDI_idnum: " + EDI_idnum;
-
-                if (Detail_idnum != 0)
-                    logMsg += "\r\nDetail_idnum: " + Detail_idnum;
-
-                insertLog_TextFile(logMsg);
-            }
         }
 
-        public void insertLog_TextFile(string logMsg)
+        /// <summary>
+        /// Create a text file (if it does not exist) and insert log messages
+        /// into the file.
+        /// </summary>
+        /// <param name="logMsg">Log message to insert into the created/exist file</param>
+
+        public void insertLog_text(string logMsg)
         {
-            // create text file
+            string FileLocation = @"C:\Engines_Log";
+            string FileName = "315_log_";
+
             FileName += DateTime.Today.ToString("yyyy_MM_dd") + ".txt";
 
             string filePathName = Path.Combine(FileLocation, FileName);

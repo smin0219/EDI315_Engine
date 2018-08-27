@@ -1,5 +1,168 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Context.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activity_Place">
+    <Key>
+      <PropertyRef Name="activity_place_idnum" />
+    </Key>
+    <Property Name="activity_place_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="container_idnum" Type="int" Nullable="false" />
+    <Property Name="activity_place_location" Type="varchar" MaxLength="30" />
+    <Property Name="activity_place_portname" Type="varchar" MaxLength="24" />
+    <Property Name="activity_place_country" Type="varchar" MaxLength="3" />
+    <Property Name="activity_place_datetime" Type="datetime" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Container">
+    <Key>
+      <PropertyRef Name="container_idnum" />
+    </Key>
+    <Property Name="container_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MBL_number" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="container_number" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="equipment_type" Type="varchar" MaxLength="4" />
+    <Property Name="vessel_code" Type="varchar" MaxLength="8" />
+    <Property Name="vessel_name" Type="varchar" MaxLength="28" />
+    <Property Name="voyage_number" Type="varchar" MaxLength="10" />
+    <Property Name="booking_number" Type="varchar" MaxLength="30" />
+    <Property Name="seal_number" Type="varchar" MaxLength="30" />
+    <Property Name="service_type" Type="varchar" MaxLength="30" />
+    <Property Name="shipper_reference_number" Type="varchar" MaxLength="30" />
+    <Property Name="pickup_number" Type="varchar" MaxLength="30" />
+    <Property Name="purchase_order_number" Type="varchar" MaxLength="30" />
+    <Property Name="IT_number" Type="varchar" MaxLength="30" />
+    <Property Name="lading_quantity" Type="int" />
+    <Property Name="weight" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="volume" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="shipment_status_code" Type="varchar" MaxLength="2" />
+    <Property Name="shipment_status_datetime" Type="datetime" />
+    <Property Name="scheduled_sailing_date" Type="datetime" />
+    <Property Name="scheduled_discharge_date" Type="datetime" />
+    <Property Name="place_of_receipt_location" Type="varchar" MaxLength="30" />
+    <Property Name="place_of_receipt_portname" Type="varchar" MaxLength="24" />
+    <Property Name="place_of_receipt_country" Type="varchar" MaxLength="3" />
+    <Property Name="place_of_receipt_datetime" Type="datetime" />
+    <Property Name="port_of_loading_location" Type="varchar" MaxLength="30" />
+    <Property Name="port_of_loading_portname" Type="varchar" MaxLength="24" />
+    <Property Name="port_of_loading_country" Type="varchar" MaxLength="3" />
+    <Property Name="port_of_loading_datetime" Type="datetime" />
+    <Property Name="port_of_discharge_location" Type="varchar" MaxLength="30" />
+    <Property Name="port_of_discharge_portname" Type="varchar" MaxLength="24" />
+    <Property Name="port_of_discharge_country" Type="varchar" MaxLength="3" />
+    <Property Name="port_of_discharge_datetime" Type="datetime" />
+    <Property Name="place_of_delivery_location" Type="varchar" MaxLength="30" />
+    <Property Name="place_of_delivery_portname" Type="varchar" MaxLength="24" />
+    <Property Name="place_of_delivery_country" Type="varchar" MaxLength="3" />
+    <Property Name="place_of_delivery_datetime" Type="datetime" />
+    <Property Name="MBL_destination_location" Type="varchar" MaxLength="30" />
+    <Property Name="MBL_destination_portname" Type="varchar" MaxLength="24" />
+    <Property Name="MBL_destination_country" Type="varchar" MaxLength="3" />
+    <Property Name="MBL_destination_datetime" Type="datetime" />
+    <Property Name="created_date" Type="datetime" Nullable="false" />
+    <Property Name="actual_door_delivery_time" Type="datetime" />
+    <Property Name="actual_door_delivery_location" Type="varchar" MaxLength="5" />
+    <Property Name="arrival_at_first_port_of_load_time" Type="datetime" />
+    <Property Name="arrival_at_first_port_of_load_location" Type="varchar" MaxLength="5" />
+    <Property Name="loaded_on_board_at_first_port_of_load_time" Type="datetime" />
+    <Property Name="loaded_on_board_at_first_port_of_load_location" Type="varchar" MaxLength="5" />
+    <Property Name="actual_door_pickup_time" Type="datetime" />
+    <Property Name="actual_door_pickup_location" Type="varchar" MaxLength="5" />
+    <Property Name="first_loaded_on_rail_under_outbound_time" Type="datetime" />
+    <Property Name="first_loaded_on_rail_under_outbound_location" Type="varchar" MaxLength="5" />
+    <Property Name="loaded_on_truck_time" Type="datetime" />
+    <Property Name="loaded_on_truck_location" Type="varchar" MaxLength="5" />
+    <Property Name="arrival_at_last_intermodal_hub_time" Type="datetime" />
+    <Property Name="arrival_at_last_intermodal_hub_location" Type="varchar" MaxLength="5" />
+    <Property Name="carrier_released_time" Type="datetime" />
+    <Property Name="carrier_released_location" Type="varchar" MaxLength="5" />
+    <Property Name="customs_released_time" Type="datetime" />
+    <Property Name="customs_released_location" Type="varchar" MaxLength="5" />
+    <Property Name="carrier_and_customs_released_time" Type="datetime" />
+    <Property Name="carrier_and_customs_released_location" Type="varchar" MaxLength="5" />
+    <Property Name="empty_container_picked_up_time" Type="datetime" />
+    <Property Name="empty_container_picked_up_location" Type="varchar" MaxLength="5" />
+    <Property Name="freight_charges_settled_time" Type="datetime" />
+    <Property Name="freight_charges_settled_location" Type="varchar" MaxLength="5" />
+    <Property Name="full_container_received_by_carrier_at_origin_time" Type="datetime" />
+    <Property Name="full_container_received_by_carrier_at_origin_location" Type="varchar" MaxLength="5" />
+    <Property Name="customs_hold_time" Type="datetime" />
+    <Property Name="customs_hold_location" Type="varchar" MaxLength="5" />
+    <Property Name="empty_container_returned_to_carrier_at_destination_time" Type="datetime" />
+    <Property Name="empty_container_returned_to_carrier_at_destination_location" Type="varchar" MaxLength="5" />
+    <Property Name="departure_from_first_intermodal_hub_time" Type="datetime" />
+    <Property Name="departure_from_first_intermodal_hub_location" Type="varchar" MaxLength="5" />
+    <Property Name="last_deramp_under_inbound_time" Type="datetime" />
+    <Property Name="last_deramp_under_inbound_location" Type="varchar" MaxLength="5" />
+    <Property Name="discharged_from_vessel_at_last_port_of_discharged_time" Type="datetime" />
+    <Property Name="discharged_from_vessel_at_last_port_of_discharged_location" Type="varchar" MaxLength="5" />
+    <Property Name="last_vessel_arrival_time" Type="datetime" />
+    <Property Name="last_vessel_arrival_location" Type="varchar" MaxLength="5" />
+    <Property Name="first_vessel_departure_time" Type="datetime" />
+    <Property Name="first_vessel_departure_location" Type="varchar" MaxLength="5" />
+    <Property Name="gate_out_full_at_inland_terminal_time" Type="datetime" />
+    <Property Name="gate_out_full_at_inland_terminal_location" Type="varchar" MaxLength="5" />
+    <Property Name="gate_in_full_at_inland_terminal_time" Type="datetime" />
+    <Property Name="gate_in_full_at_inland_terminal_location" Type="varchar" MaxLength="5" />
+    <Property Name="equipment_delayed_due_to_transportation_time" Type="datetime" />
+    <Property Name="equipment_delayed_due_to_transportation_location" Type="varchar" MaxLength="5" />
+    <Property Name="arrived_at_facility_time" Type="datetime" />
+    <Property Name="arrived_at_facility_location" Type="varchar" MaxLength="5" />
+    <Property Name="departed_from_facility_time" Type="datetime" />
+    <Property Name="departed_from_facility_location" Type="varchar" MaxLength="5" />
+    <Property Name="loaded_at_port_time" Type="datetime" />
+    <Property Name="loaded_at_port_location" Type="varchar" MaxLength="5" />
+    <Property Name="vessel_arrival_at_port" Type="datetime" />
+    <Property Name="vessel_arrival_at_location" Type="varchar" MaxLength="5" />
+    <Property Name="discharged_from_vessel_at_port_of_discharge_time" Type="datetime" />
+    <Property Name="discharged_from_vessel_at_port_of_discharge_location" Type="varchar" MaxLength="5" />
+    <Property Name="full_container_received_by_carrier_time" Type="datetime" />
+    <Property Name="full_container_received_by_carrier_location" Type="varchar" MaxLength="5" />
+    <Property Name="vessel_departure_time" Type="datetime" />
+    <Property Name="vessel_departure_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_repacked_time" Type="datetime" />
+    <Property Name="container_repacked_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_vanned_at_origin_time" Type="datetime" />
+    <Property Name="container_vanned_at_origin_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_devanned_at_origin_time" Type="datetime" />
+    <Property Name="container_devanned_at_origin_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_vanned_at_destination_time" Type="datetime" />
+    <Property Name="container_vanned_at_destination_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_devanned_at_destination_time" Type="datetime" />
+    <Property Name="container_devanned_at_destination_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_transferred_time" Type="datetime" />
+    <Property Name="container_transferred_location" Type="varchar" MaxLength="5" />
+    <Property Name="carrier_held_time" Type="datetime" />
+    <Property Name="carrier_held_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_available_time" Type="datetime" />
+    <Property Name="container_available_location" Type="varchar" MaxLength="5" />
+    <Property Name="arrival_at_intermodal_hub_by_rail_time" Type="datetime" />
+    <Property Name="arrival_at_intermodal_hub_by_rail_location" Type="varchar" MaxLength="5" />
+    <Property Name="loaded_on_rail_time" Type="datetime" />
+    <Property Name="loaded_on_rail_location" Type="varchar" MaxLength="5" />
+    <Property Name="rail_move_time" Type="datetime" />
+    <Property Name="rail_move_location" Type="varchar" MaxLength="5" />
+    <Property Name="loaded_time" Type="datetime" />
+    <Property Name="loaded_location" Type="varchar" MaxLength="5" />
+    <Property Name="discharged_time" Type="datetime" />
+    <Property Name="discharged_location" Type="varchar" MaxLength="5" />
+    <Property Name="container_picked_up_from_port_of_discharge_transhipment_port_time" Type="datetime" />
+    <Property Name="container_picked_up_from_port_of_discharge_transhipment_port_location" Type="varchar" MaxLength="5" />
+    <Property Name="last_deramp_under_outbound_time" Type="datetime" />
+    <Property Name="last_deramp_under_outbound_location" Type="varchar" MaxLength="5" />
+    <Property Name="transhipment_vessel_arrival_time" Type="datetime" />
+    <Property Name="transhipment_vessel_arrival_location" Type="varchar" MaxLength="5" />
+    <Property Name="loaded_at_port_of_transhipment_time" Type="datetime" />
+    <Property Name="loaded_at_port_of_transhipment_location" Type="varchar" MaxLength="5" />
+    <Property Name="discharged_at_port_of_transhipment_time" Type="datetime" />
+    <Property Name="discharged_at_port_of_transhipment_location" Type="varchar" MaxLength="5" />
+    <Property Name="transhipment_vessel_departure_time" Type="datetime" />
+    <Property Name="transhipment_vessel_departure_location" Type="varchar" MaxLength="5" />
+    <Property Name="intermodal_departure_from_last_port_of_discharge_time" Type="datetime" />
+    <Property Name="intermodal_departure_from_last_port_of_discharge_location" Type="varchar" MaxLength="5" />
+    <Property Name="first_loaded_on_rail_under_inbound_time" Type="datetime" />
+    <Property Name="first_loaded_on_rail_under_inbound_location" Type="varchar" MaxLength="5" />
+    <Property Name="picked_up_at_final_destination_for_delivery_time" Type="datetime" />
+    <Property Name="picked_up_at_final_destination_for_delivery_location" Type="varchar" MaxLength="5" />
+  </EntityType>
   <EntityType Name="EDI_Messages">
     <Key>
       <PropertyRef Name="msg_idnum" />
@@ -10,119 +173,6 @@
     <Property Name="received_date" Type="datetime" Nullable="false" />
     <Property Name="file_name" Type="varchar" MaxLength="50" />
     <Property Name="process_status" Type="varchar" MaxLength="1" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EDI315">
-    <Key>
-      <PropertyRef Name="EDI315_idnum" />
-    </Key>
-    <Property Name="EDI315_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="msg_idnum" Type="int" Nullable="false" />
-    <Property Name="ISA_auth_info_qualifier" Type="varchar" MaxLength="2" Nullable="false" />
-    <Property Name="ISA_auth_info" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="ISA_security_info_qualifier" Type="varchar" MaxLength="2" Nullable="false" />
-    <Property Name="ISA_security_info" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="ISA_interchange_id_qualifier_1" Type="varchar" MaxLength="2" Nullable="false" />
-    <Property Name="ISA_interchange_sender_id" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="ISA_interchange_id_qualifier_2" Type="varchar" MaxLength="2" Nullable="false" />
-    <Property Name="ISA_interchange_receiver_id" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="ISA_interchage_date" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="ISA_interchange_time" Type="varchar" MaxLength="4" Nullable="false" />
-    <Property Name="ISA_interchange_control_standards_id" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="ISA_interchange_control_version_number" Type="varchar" MaxLength="5" Nullable="false" />
-    <Property Name="ISA_interchange_control_number" Type="varchar" MaxLength="9" Nullable="false" />
-    <Property Name="ISA_ack_requested" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="ISA_usage_indicator" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="ISA_component_element_separator" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="GS_functional_id_code" Type="varchar" MaxLength="2" Nullable="false" />
-    <Property Name="GS_app_sender_code" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="GS_app_receiver_code" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="GS_date" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="GS_time" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="GS_group_control_number" Type="varchar" MaxLength="9" Nullable="false" />
-    <Property Name="GS_reponsible_agency_code" Type="varchar" MaxLength="2" Nullable="false" />
-    <Property Name="GS_industry_id_code" Type="varchar" MaxLength="12" Nullable="false" />
-    <Property Name="created_date" Type="datetime" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EDI315_Detail">
-    <Key>
-      <PropertyRef Name="EDI315_Detail_idnum" />
-    </Key>
-    <Property Name="EDI315_Detail_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="msg_idnum" Type="int" Nullable="false" />
-    <Property Name="EDI315_idnum" Type="int" Nullable="false" />
-    <Property Name="B4_SHC" Type="varchar" MaxLength="3" />
-    <Property Name="B4_request_number" Type="int" />
-    <Property Name="B4_status_code" Type="varchar" MaxLength="2" />
-    <Property Name="B4_date" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="B4_status_time" Type="varchar" MaxLength="4" Nullable="false" />
-    <Property Name="B4_status_location" Type="varchar" MaxLength="5" Nullable="false" />
-    <Property Name="B4_equip_initial" Type="varchar" MaxLength="4" />
-    <Property Name="B4_equip_number" Type="varchar" MaxLength="10" />
-    <Property Name="B4_equip_status_code" Type="varchar" MaxLength="2" />
-    <Property Name="B4_equip_type" Type="varchar" MaxLength="4" />
-    <Property Name="B4_location_code" Type="varchar" MaxLength="30" />
-    <Property Name="B4_location_id" Type="varchar" MaxLength="2" />
-    <Property Name="B4_equip_check_digit" Type="int" />
-    <Property Name="Q2_vessel_code" Type="varchar" MaxLength="8" />
-    <Property Name="Q2_country_code" Type="varchar" MaxLength="3" />
-    <Property Name="Q2_date_1" Type="varchar" MaxLength="8" />
-    <Property Name="Q2_date_2" Type="varchar" MaxLength="8" />
-    <Property Name="Q2_date_3" Type="varchar" MaxLength="8" />
-    <Property Name="Q2_lading_quantity" Type="int" />
-    <Property Name="Q2_weight" Type="decimal" Precision="18" Scale="2" />
-    <Property Name="Q2_weight_qualifier" Type="varchar" MaxLength="2" />
-    <Property Name="Q2_voyage_number" Type="varchar" MaxLength="10" />
-    <Property Name="Q2_reference_id_qualifier" Type="varchar" MaxLength="3" />
-    <Property Name="Q2_reference_id" Type="varchar" MaxLength="30" />
-    <Property Name="Q2_vessel_code_qualifier" Type="varchar" MaxLength="1" />
-    <Property Name="Q2_vessel_name" Type="varchar" MaxLength="28" />
-    <Property Name="Q2_volume" Type="decimal" Precision="18" Scale="2" />
-    <Property Name="Q2_volume_unit_qualifier" Type="varchar" MaxLength="1" />
-    <Property Name="Q2_weight_unit_code" Type="varchar" MaxLength="1" />
-    <Property Name="SE_included_segments_number" Type="int" Nullable="false" />
-    <Property Name="SE_transaction_set_control_number" Type="varchar" MaxLength="9" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EDI315_Detail_N9">
-    <Key>
-      <PropertyRef Name="Detail_N9_idnum" />
-    </Key>
-    <Property Name="Detail_N9_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="msg_idnum" Type="int" Nullable="false" />
-    <Property Name="EDI315_Detail_idnum" Type="int" Nullable="false" />
-    <Property Name="reference_id_qualifier" Type="varchar" MaxLength="3" Nullable="false" />
-    <Property Name="reference_id" Type="varchar" MaxLength="30" />
-    <Property Name="free_form_description" Type="varchar" MaxLength="45" />
-    <Property Name="date" Type="varchar" MaxLength="8" />
-    <Property Name="time" Type="varchar" MaxLength="8" />
-    <Property Name="time_code" Type="varchar" MaxLength="2" />
-  </EntityType>
-  <EntityType Name="EDI315_Detail_R4">
-    <Key>
-      <PropertyRef Name="Detail_R4_idnum" />
-    </Key>
-    <Property Name="Detail_R4_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="msg_idnum" Type="int" Nullable="false" />
-    <Property Name="EDI315_Detail_idnum" Type="int" Nullable="false" />
-    <Property Name="port_function_code" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="location_qualifier" Type="varchar" MaxLength="2" />
-    <Property Name="location_id" Type="varchar" MaxLength="30" />
-    <Property Name="port_name" Type="varchar" MaxLength="24" />
-    <Property Name="country_code" Type="varchar" MaxLength="3" />
-    <Property Name="terminal_name" Type="varchar" MaxLength="30" />
-    <Property Name="pier_number" Type="varchar" MaxLength="4" />
-    <Property Name="province_code" Type="varchar" MaxLength="2" />
-  </EntityType>
-  <EntityType Name="EDI315_Detail_R4_DTM">
-    <Key>
-      <PropertyRef Name="Detail_R4_DTM_idnum" />
-    </Key>
-    <Property Name="Detail_R4_DTM_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="msg_idnum" Type="int" Nullable="false" />
-    <Property Name="Detail_R4_idnum" Type="int" Nullable="false" />
-    <Property Name="datetime_qualifier" Type="varchar" MaxLength="3" Nullable="false" />
-    <Property Name="date" Type="varchar" MaxLength="8" />
-    <Property Name="time" Type="varchar" MaxLength="4" />
-    <Property Name="time_code" Type="varchar" MaxLength="2" />
   </EntityType>
   <EntityType Name="Engines_Log">
     <Key>
@@ -136,77 +186,26 @@
     <Property Name="log_msg" Type="varchar(max)" Nullable="false" />
     <Property Name="created_date" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK_160">
-    <End Role="EDI315_Detail" Type="Self.EDI315_Detail" Multiplicity="1" />
-    <End Role="EDI315_Detail_N9" Type="Self.EDI315_Detail_N9" Multiplicity="*" />
+  <Association Name="FK_1165">
+    <End Role="Container" Type="Self.Container" Multiplicity="1" />
+    <End Role="Activity_Place" Type="Self.Activity_Place" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="EDI315_Detail">
-        <PropertyRef Name="EDI315_Detail_idnum" />
+      <Principal Role="Container">
+        <PropertyRef Name="container_idnum" />
       </Principal>
-      <Dependent Role="EDI315_Detail_N9">
-        <PropertyRef Name="EDI315_Detail_idnum" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_174">
-    <End Role="EDI315_Detail" Type="Self.EDI315_Detail" Multiplicity="1" />
-    <End Role="EDI315_Detail_R4" Type="Self.EDI315_Detail_R4" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EDI315_Detail">
-        <PropertyRef Name="EDI315_Detail_idnum" />
-      </Principal>
-      <Dependent Role="EDI315_Detail_R4">
-        <PropertyRef Name="EDI315_Detail_idnum" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_190">
-    <End Role="EDI315_Detail_R4" Type="Self.EDI315_Detail_R4" Multiplicity="1" />
-    <End Role="EDI315_Detail_R4_DTM" Type="Self.EDI315_Detail_R4_DTM" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EDI315_Detail_R4">
-        <PropertyRef Name="Detail_R4_idnum" />
-      </Principal>
-      <Dependent Role="EDI315_Detail_R4_DTM">
-        <PropertyRef Name="Detail_R4_idnum" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_245">
-    <End Role="EDI315" Type="Self.EDI315" Multiplicity="1" />
-    <End Role="EDI315_Detail" Type="Self.EDI315_Detail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EDI315">
-        <PropertyRef Name="EDI315_idnum" />
-      </Principal>
-      <Dependent Role="EDI315_Detail">
-        <PropertyRef Name="EDI315_idnum" />
+      <Dependent Role="Activity_Place">
+        <PropertyRef Name="container_idnum" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="ContextStoreContainer">
+    <EntitySet Name="Activity_Place" EntityType="Self.Activity_Place" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Container" EntityType="Self.Container" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EDI_Messages" EntityType="Self.EDI_Messages" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EDI315" EntityType="Self.EDI315" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EDI315_Detail" EntityType="Self.EDI315_Detail" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EDI315_Detail_N9" EntityType="Self.EDI315_Detail_N9" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EDI315_Detail_R4" EntityType="Self.EDI315_Detail_R4" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EDI315_Detail_R4_DTM" EntityType="Self.EDI315_Detail_R4_DTM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Engines_Log" EntityType="Self.Engines_Log" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_160" Association="Self.FK_160">
-      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
-      <End Role="EDI315_Detail_N9" EntitySet="EDI315_Detail_N9" />
-    </AssociationSet>
-    <AssociationSet Name="FK_174" Association="Self.FK_174">
-      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
-      <End Role="EDI315_Detail_R4" EntitySet="EDI315_Detail_R4" />
-    </AssociationSet>
-    <AssociationSet Name="FK_190" Association="Self.FK_190">
-      <End Role="EDI315_Detail_R4" EntitySet="EDI315_Detail_R4" />
-      <End Role="EDI315_Detail_R4_DTM" EntitySet="EDI315_Detail_R4_DTM" />
-    </AssociationSet>
-    <AssociationSet Name="FK_245" Association="Self.FK_245">
-      <End Role="EDI315" EntitySet="EDI315" />
-      <End Role="EDI315_Detail" EntitySet="EDI315_Detail" />
+    <AssociationSet Name="FK_1165" Association="Self.FK_1165">
+      <End Role="Container" EntitySet="Container" />
+      <End Role="Activity_Place" EntitySet="Activity_Place" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -1,6 +1,171 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ContextStoreContainer" CdmEntityContainer="DBContext">
+    <EntitySetMapping Name="Activity_Place">
+      <EntityTypeMapping TypeName="Context.Activity_Place">
+        <MappingFragment StoreEntitySet="Activity_Place">
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="activity_place_datetime" ColumnName="activity_place_datetime" />
+          <ScalarProperty Name="activity_place_country" ColumnName="activity_place_country" />
+          <ScalarProperty Name="activity_place_portname" ColumnName="activity_place_portname" />
+          <ScalarProperty Name="activity_place_location" ColumnName="activity_place_location" />
+          <ScalarProperty Name="container_idnum" ColumnName="container_idnum" />
+          <ScalarProperty Name="activity_place_idnum" ColumnName="activity_place_idnum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Container">
+      <EntityTypeMapping TypeName="Context.Container">
+        <MappingFragment StoreEntitySet="Container">
+          <ScalarProperty Name="picked_up_at_final_destination_for_delivery_location" ColumnName="picked_up_at_final_destination_for_delivery_location" />
+          <ScalarProperty Name="picked_up_at_final_destination_for_delivery_time" ColumnName="picked_up_at_final_destination_for_delivery_time" />
+          <ScalarProperty Name="first_loaded_on_rail_under_inbound_location" ColumnName="first_loaded_on_rail_under_inbound_location" />
+          <ScalarProperty Name="first_loaded_on_rail_under_inbound_time" ColumnName="first_loaded_on_rail_under_inbound_time" />
+          <ScalarProperty Name="intermodal_departure_from_last_port_of_discharge_location" ColumnName="intermodal_departure_from_last_port_of_discharge_location" />
+          <ScalarProperty Name="intermodal_departure_from_last_port_of_discharge_time" ColumnName="intermodal_departure_from_last_port_of_discharge_time" />
+          <ScalarProperty Name="transhipment_vessel_departure_location" ColumnName="transhipment_vessel_departure_location" />
+          <ScalarProperty Name="transhipment_vessel_departure_time" ColumnName="transhipment_vessel_departure_time" />
+          <ScalarProperty Name="discharged_at_port_of_transhipment_location" ColumnName="discharged_at_port_of_transhipment_location" />
+          <ScalarProperty Name="discharged_at_port_of_transhipment_time" ColumnName="discharged_at_port_of_transhipment_time" />
+          <ScalarProperty Name="loaded_at_port_of_transhipment_location" ColumnName="loaded_at_port_of_transhipment_location" />
+          <ScalarProperty Name="loaded_at_port_of_transhipment_time" ColumnName="loaded_at_port_of_transhipment_time" />
+          <ScalarProperty Name="transhipment_vessel_arrival_location" ColumnName="transhipment_vessel_arrival_location" />
+          <ScalarProperty Name="transhipment_vessel_arrival_time" ColumnName="transhipment_vessel_arrival_time" />
+          <ScalarProperty Name="last_deramp_under_outbound_location" ColumnName="last_deramp_under_outbound_location" />
+          <ScalarProperty Name="last_deramp_under_outbound_time" ColumnName="last_deramp_under_outbound_time" />
+          <ScalarProperty Name="container_picked_up_from_port_of_discharge_transhipment_port_location" ColumnName="container_picked_up_from_port_of_discharge_transhipment_port_location" />
+          <ScalarProperty Name="container_picked_up_from_port_of_discharge_transhipment_port_time" ColumnName="container_picked_up_from_port_of_discharge_transhipment_port_time" />
+          <ScalarProperty Name="discharged_location" ColumnName="discharged_location" />
+          <ScalarProperty Name="discharged_time" ColumnName="discharged_time" />
+          <ScalarProperty Name="loaded_location" ColumnName="loaded_location" />
+          <ScalarProperty Name="loaded_time" ColumnName="loaded_time" />
+          <ScalarProperty Name="rail_move_location" ColumnName="rail_move_location" />
+          <ScalarProperty Name="rail_move_time" ColumnName="rail_move_time" />
+          <ScalarProperty Name="loaded_on_rail_location" ColumnName="loaded_on_rail_location" />
+          <ScalarProperty Name="loaded_on_rail_time" ColumnName="loaded_on_rail_time" />
+          <ScalarProperty Name="arrival_at_intermodal_hub_by_rail_location" ColumnName="arrival_at_intermodal_hub_by_rail_location" />
+          <ScalarProperty Name="arrival_at_intermodal_hub_by_rail_time" ColumnName="arrival_at_intermodal_hub_by_rail_time" />
+          <ScalarProperty Name="container_available_location" ColumnName="container_available_location" />
+          <ScalarProperty Name="container_available_time" ColumnName="container_available_time" />
+          <ScalarProperty Name="carrier_held_location" ColumnName="carrier_held_location" />
+          <ScalarProperty Name="carrier_held_time" ColumnName="carrier_held_time" />
+          <ScalarProperty Name="container_transferred_location" ColumnName="container_transferred_location" />
+          <ScalarProperty Name="container_transferred_time" ColumnName="container_transferred_time" />
+          <ScalarProperty Name="container_devanned_at_destination_location" ColumnName="container_devanned_at_destination_location" />
+          <ScalarProperty Name="container_devanned_at_destination_time" ColumnName="container_devanned_at_destination_time" />
+          <ScalarProperty Name="container_vanned_at_destination_location" ColumnName="container_vanned_at_destination_location" />
+          <ScalarProperty Name="container_vanned_at_destination_time" ColumnName="container_vanned_at_destination_time" />
+          <ScalarProperty Name="container_devanned_at_origin_location" ColumnName="container_devanned_at_origin_location" />
+          <ScalarProperty Name="container_devanned_at_origin_time" ColumnName="container_devanned_at_origin_time" />
+          <ScalarProperty Name="container_vanned_at_origin_location" ColumnName="container_vanned_at_origin_location" />
+          <ScalarProperty Name="container_vanned_at_origin_time" ColumnName="container_vanned_at_origin_time" />
+          <ScalarProperty Name="container_repacked_location" ColumnName="container_repacked_location" />
+          <ScalarProperty Name="container_repacked_time" ColumnName="container_repacked_time" />
+          <ScalarProperty Name="vessel_departure_location" ColumnName="vessel_departure_location" />
+          <ScalarProperty Name="vessel_departure_time" ColumnName="vessel_departure_time" />
+          <ScalarProperty Name="full_container_received_by_carrier_location" ColumnName="full_container_received_by_carrier_location" />
+          <ScalarProperty Name="full_container_received_by_carrier_time" ColumnName="full_container_received_by_carrier_time" />
+          <ScalarProperty Name="discharged_from_vessel_at_port_of_discharge_location" ColumnName="discharged_from_vessel_at_port_of_discharge_location" />
+          <ScalarProperty Name="discharged_from_vessel_at_port_of_discharge_time" ColumnName="discharged_from_vessel_at_port_of_discharge_time" />
+          <ScalarProperty Name="vessel_arrival_at_location" ColumnName="vessel_arrival_at_location" />
+          <ScalarProperty Name="vessel_arrival_at_port" ColumnName="vessel_arrival_at_port" />
+          <ScalarProperty Name="loaded_at_port_location" ColumnName="loaded_at_port_location" />
+          <ScalarProperty Name="loaded_at_port_time" ColumnName="loaded_at_port_time" />
+          <ScalarProperty Name="departed_from_facility_location" ColumnName="departed_from_facility_location" />
+          <ScalarProperty Name="departed_from_facility_time" ColumnName="departed_from_facility_time" />
+          <ScalarProperty Name="arrived_at_facility_location" ColumnName="arrived_at_facility_location" />
+          <ScalarProperty Name="arrived_at_facility_time" ColumnName="arrived_at_facility_time" />
+          <ScalarProperty Name="equipment_delayed_due_to_transportation_location" ColumnName="equipment_delayed_due_to_transportation_location" />
+          <ScalarProperty Name="equipment_delayed_due_to_transportation_time" ColumnName="equipment_delayed_due_to_transportation_time" />
+          <ScalarProperty Name="gate_in_full_at_inland_terminal_location" ColumnName="gate_in_full_at_inland_terminal_location" />
+          <ScalarProperty Name="gate_in_full_at_inland_terminal_time" ColumnName="gate_in_full_at_inland_terminal_time" />
+          <ScalarProperty Name="gate_out_full_at_inland_terminal_location" ColumnName="gate_out_full_at_inland_terminal_location" />
+          <ScalarProperty Name="gate_out_full_at_inland_terminal_time" ColumnName="gate_out_full_at_inland_terminal_time" />
+          <ScalarProperty Name="first_vessel_departure_location" ColumnName="first_vessel_departure_location" />
+          <ScalarProperty Name="first_vessel_departure_time" ColumnName="first_vessel_departure_time" />
+          <ScalarProperty Name="last_vessel_arrival_location" ColumnName="last_vessel_arrival_location" />
+          <ScalarProperty Name="last_vessel_arrival_time" ColumnName="last_vessel_arrival_time" />
+          <ScalarProperty Name="discharged_from_vessel_at_last_port_of_discharged_location" ColumnName="discharged_from_vessel_at_last_port_of_discharged_location" />
+          <ScalarProperty Name="discharged_from_vessel_at_last_port_of_discharged_time" ColumnName="discharged_from_vessel_at_last_port_of_discharged_time" />
+          <ScalarProperty Name="last_deramp_under_inbound_location" ColumnName="last_deramp_under_inbound_location" />
+          <ScalarProperty Name="last_deramp_under_inbound_time" ColumnName="last_deramp_under_inbound_time" />
+          <ScalarProperty Name="departure_from_first_intermodal_hub_location" ColumnName="departure_from_first_intermodal_hub_location" />
+          <ScalarProperty Name="departure_from_first_intermodal_hub_time" ColumnName="departure_from_first_intermodal_hub_time" />
+          <ScalarProperty Name="empty_container_returned_to_carrier_at_destination_location" ColumnName="empty_container_returned_to_carrier_at_destination_location" />
+          <ScalarProperty Name="empty_container_returned_to_carrier_at_destination_time" ColumnName="empty_container_returned_to_carrier_at_destination_time" />
+          <ScalarProperty Name="customs_hold_location" ColumnName="customs_hold_location" />
+          <ScalarProperty Name="customs_hold_time" ColumnName="customs_hold_time" />
+          <ScalarProperty Name="full_container_received_by_carrier_at_origin_location" ColumnName="full_container_received_by_carrier_at_origin_location" />
+          <ScalarProperty Name="full_container_received_by_carrier_at_origin_time" ColumnName="full_container_received_by_carrier_at_origin_time" />
+          <ScalarProperty Name="freight_charges_settled_location" ColumnName="freight_charges_settled_location" />
+          <ScalarProperty Name="freight_charges_settled_time" ColumnName="freight_charges_settled_time" />
+          <ScalarProperty Name="empty_container_picked_up_location" ColumnName="empty_container_picked_up_location" />
+          <ScalarProperty Name="empty_container_picked_up_time" ColumnName="empty_container_picked_up_time" />
+          <ScalarProperty Name="carrier_and_customs_released_location" ColumnName="carrier_and_customs_released_location" />
+          <ScalarProperty Name="carrier_and_customs_released_time" ColumnName="carrier_and_customs_released_time" />
+          <ScalarProperty Name="customs_released_location" ColumnName="customs_released_location" />
+          <ScalarProperty Name="customs_released_time" ColumnName="customs_released_time" />
+          <ScalarProperty Name="carrier_released_location" ColumnName="carrier_released_location" />
+          <ScalarProperty Name="carrier_released_time" ColumnName="carrier_released_time" />
+          <ScalarProperty Name="arrival_at_last_intermodal_hub_location" ColumnName="arrival_at_last_intermodal_hub_location" />
+          <ScalarProperty Name="arrival_at_last_intermodal_hub_time" ColumnName="arrival_at_last_intermodal_hub_time" />
+          <ScalarProperty Name="loaded_on_truck_location" ColumnName="loaded_on_truck_location" />
+          <ScalarProperty Name="loaded_on_truck_time" ColumnName="loaded_on_truck_time" />
+          <ScalarProperty Name="first_loaded_on_rail_under_outbound_location" ColumnName="first_loaded_on_rail_under_outbound_location" />
+          <ScalarProperty Name="first_loaded_on_rail_under_outbound_time" ColumnName="first_loaded_on_rail_under_outbound_time" />
+          <ScalarProperty Name="actual_door_pickup_location" ColumnName="actual_door_pickup_location" />
+          <ScalarProperty Name="actual_door_pickup_time" ColumnName="actual_door_pickup_time" />
+          <ScalarProperty Name="loaded_on_board_at_first_port_of_load_location" ColumnName="loaded_on_board_at_first_port_of_load_location" />
+          <ScalarProperty Name="loaded_on_board_at_first_port_of_load_time" ColumnName="loaded_on_board_at_first_port_of_load_time" />
+          <ScalarProperty Name="arrival_at_first_port_of_load_location" ColumnName="arrival_at_first_port_of_load_location" />
+          <ScalarProperty Name="arrival_at_first_port_of_load_time" ColumnName="arrival_at_first_port_of_load_time" />
+          <ScalarProperty Name="actual_door_delivery_location" ColumnName="actual_door_delivery_location" />
+          <ScalarProperty Name="actual_door_delivery_time" ColumnName="actual_door_delivery_time" />
+          <ScalarProperty Name="created_date" ColumnName="created_date" />
+          <ScalarProperty Name="MBL_destination_datetime" ColumnName="MBL_destination_datetime" />
+          <ScalarProperty Name="MBL_destination_country" ColumnName="MBL_destination_country" />
+          <ScalarProperty Name="MBL_destination_portname" ColumnName="MBL_destination_portname" />
+          <ScalarProperty Name="MBL_destination_location" ColumnName="MBL_destination_location" />
+          <ScalarProperty Name="place_of_delivery_datetime" ColumnName="place_of_delivery_datetime" />
+          <ScalarProperty Name="place_of_delivery_country" ColumnName="place_of_delivery_country" />
+          <ScalarProperty Name="place_of_delivery_portname" ColumnName="place_of_delivery_portname" />
+          <ScalarProperty Name="place_of_delivery_location" ColumnName="place_of_delivery_location" />
+          <ScalarProperty Name="port_of_discharge_datetime" ColumnName="port_of_discharge_datetime" />
+          <ScalarProperty Name="port_of_discharge_country" ColumnName="port_of_discharge_country" />
+          <ScalarProperty Name="port_of_discharge_portname" ColumnName="port_of_discharge_portname" />
+          <ScalarProperty Name="port_of_discharge_location" ColumnName="port_of_discharge_location" />
+          <ScalarProperty Name="port_of_loading_datetime" ColumnName="port_of_loading_datetime" />
+          <ScalarProperty Name="port_of_loading_country" ColumnName="port_of_loading_country" />
+          <ScalarProperty Name="port_of_loading_portname" ColumnName="port_of_loading_portname" />
+          <ScalarProperty Name="port_of_loading_location" ColumnName="port_of_loading_location" />
+          <ScalarProperty Name="place_of_receipt_datetime" ColumnName="place_of_receipt_datetime" />
+          <ScalarProperty Name="place_of_receipt_country" ColumnName="place_of_receipt_country" />
+          <ScalarProperty Name="place_of_receipt_portname" ColumnName="place_of_receipt_portname" />
+          <ScalarProperty Name="place_of_receipt_location" ColumnName="place_of_receipt_location" />
+          <ScalarProperty Name="scheduled_discharge_date" ColumnName="scheduled_discharge_date" />
+          <ScalarProperty Name="scheduled_sailing_date" ColumnName="scheduled_sailing_date" />
+          <ScalarProperty Name="shipment_status_datetime" ColumnName="shipment_status_datetime" />
+          <ScalarProperty Name="shipment_status_code" ColumnName="shipment_status_code" />
+          <ScalarProperty Name="volume" ColumnName="volume" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="lading_quantity" ColumnName="lading_quantity" />
+          <ScalarProperty Name="IT_number" ColumnName="IT_number" />
+          <ScalarProperty Name="purchase_order_number" ColumnName="purchase_order_number" />
+          <ScalarProperty Name="pickup_number" ColumnName="pickup_number" />
+          <ScalarProperty Name="shipper_reference_number" ColumnName="shipper_reference_number" />
+          <ScalarProperty Name="service_type" ColumnName="service_type" />
+          <ScalarProperty Name="seal_number" ColumnName="seal_number" />
+          <ScalarProperty Name="booking_number" ColumnName="booking_number" />
+          <ScalarProperty Name="voyage_number" ColumnName="voyage_number" />
+          <ScalarProperty Name="vessel_name" ColumnName="vessel_name" />
+          <ScalarProperty Name="vessel_code" ColumnName="vessel_code" />
+          <ScalarProperty Name="equipment_type" ColumnName="equipment_type" />
+          <ScalarProperty Name="container_number" ColumnName="container_number" />
+          <ScalarProperty Name="MBL_number" ColumnName="MBL_number" />
+          <ScalarProperty Name="container_idnum" ColumnName="container_idnum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="EDI_Messages">
       <EntityTypeMapping TypeName="Context.EDI_Messages">
         <MappingFragment StoreEntitySet="EDI_Messages">
@@ -10,124 +175,6 @@
           <ScalarProperty Name="msg_body" ColumnName="msg_body" />
           <ScalarProperty Name="msg_type" ColumnName="msg_type" />
           <ScalarProperty Name="msg_idnum" ColumnName="msg_idnum" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EDI315">
-      <EntityTypeMapping TypeName="Context.EDI315">
-        <MappingFragment StoreEntitySet="EDI315">
-          <ScalarProperty Name="created_date" ColumnName="created_date" />
-          <ScalarProperty Name="GS_industry_id_code" ColumnName="GS_industry_id_code" />
-          <ScalarProperty Name="GS_reponsible_agency_code" ColumnName="GS_reponsible_agency_code" />
-          <ScalarProperty Name="GS_group_control_number" ColumnName="GS_group_control_number" />
-          <ScalarProperty Name="GS_time" ColumnName="GS_time" />
-          <ScalarProperty Name="GS_date" ColumnName="GS_date" />
-          <ScalarProperty Name="GS_app_receiver_code" ColumnName="GS_app_receiver_code" />
-          <ScalarProperty Name="GS_app_sender_code" ColumnName="GS_app_sender_code" />
-          <ScalarProperty Name="GS_functional_id_code" ColumnName="GS_functional_id_code" />
-          <ScalarProperty Name="ISA_component_element_separator" ColumnName="ISA_component_element_separator" />
-          <ScalarProperty Name="ISA_usage_indicator" ColumnName="ISA_usage_indicator" />
-          <ScalarProperty Name="ISA_ack_requested" ColumnName="ISA_ack_requested" />
-          <ScalarProperty Name="ISA_interchange_control_number" ColumnName="ISA_interchange_control_number" />
-          <ScalarProperty Name="ISA_interchange_control_version_number" ColumnName="ISA_interchange_control_version_number" />
-          <ScalarProperty Name="ISA_interchange_control_standards_id" ColumnName="ISA_interchange_control_standards_id" />
-          <ScalarProperty Name="ISA_interchange_time" ColumnName="ISA_interchange_time" />
-          <ScalarProperty Name="ISA_interchage_date" ColumnName="ISA_interchage_date" />
-          <ScalarProperty Name="ISA_interchange_receiver_id" ColumnName="ISA_interchange_receiver_id" />
-          <ScalarProperty Name="ISA_interchange_id_qualifier_2" ColumnName="ISA_interchange_id_qualifier_2" />
-          <ScalarProperty Name="ISA_interchange_sender_id" ColumnName="ISA_interchange_sender_id" />
-          <ScalarProperty Name="ISA_interchange_id_qualifier_1" ColumnName="ISA_interchange_id_qualifier_1" />
-          <ScalarProperty Name="ISA_security_info" ColumnName="ISA_security_info" />
-          <ScalarProperty Name="ISA_security_info_qualifier" ColumnName="ISA_security_info_qualifier" />
-          <ScalarProperty Name="ISA_auth_info" ColumnName="ISA_auth_info" />
-          <ScalarProperty Name="ISA_auth_info_qualifier" ColumnName="ISA_auth_info_qualifier" />
-          <ScalarProperty Name="msg_idnum" ColumnName="msg_idnum" />
-          <ScalarProperty Name="EDI315_idnum" ColumnName="EDI315_idnum" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EDI315_Detail">
-      <EntityTypeMapping TypeName="Context.EDI315_Detail">
-        <MappingFragment StoreEntitySet="EDI315_Detail">
-          <ScalarProperty Name="SE_transaction_set_control_number" ColumnName="SE_transaction_set_control_number" />
-          <ScalarProperty Name="SE_included_segments_number" ColumnName="SE_included_segments_number" />
-          <ScalarProperty Name="Q2_weight_unit_code" ColumnName="Q2_weight_unit_code" />
-          <ScalarProperty Name="Q2_volume_unit_qualifier" ColumnName="Q2_volume_unit_qualifier" />
-          <ScalarProperty Name="Q2_volume" ColumnName="Q2_volume" />
-          <ScalarProperty Name="Q2_vessel_name" ColumnName="Q2_vessel_name" />
-          <ScalarProperty Name="Q2_vessel_code_qualifier" ColumnName="Q2_vessel_code_qualifier" />
-          <ScalarProperty Name="Q2_reference_id" ColumnName="Q2_reference_id" />
-          <ScalarProperty Name="Q2_reference_id_qualifier" ColumnName="Q2_reference_id_qualifier" />
-          <ScalarProperty Name="Q2_voyage_number" ColumnName="Q2_voyage_number" />
-          <ScalarProperty Name="Q2_weight_qualifier" ColumnName="Q2_weight_qualifier" />
-          <ScalarProperty Name="Q2_weight" ColumnName="Q2_weight" />
-          <ScalarProperty Name="Q2_lading_quantity" ColumnName="Q2_lading_quantity" />
-          <ScalarProperty Name="Q2_date_3" ColumnName="Q2_date_3" />
-          <ScalarProperty Name="Q2_date_2" ColumnName="Q2_date_2" />
-          <ScalarProperty Name="Q2_date_1" ColumnName="Q2_date_1" />
-          <ScalarProperty Name="Q2_country_code" ColumnName="Q2_country_code" />
-          <ScalarProperty Name="Q2_vessel_code" ColumnName="Q2_vessel_code" />
-          <ScalarProperty Name="B4_equip_check_digit" ColumnName="B4_equip_check_digit" />
-          <ScalarProperty Name="B4_location_id" ColumnName="B4_location_id" />
-          <ScalarProperty Name="B4_location_code" ColumnName="B4_location_code" />
-          <ScalarProperty Name="B4_equip_type" ColumnName="B4_equip_type" />
-          <ScalarProperty Name="B4_equip_status_code" ColumnName="B4_equip_status_code" />
-          <ScalarProperty Name="B4_equip_number" ColumnName="B4_equip_number" />
-          <ScalarProperty Name="B4_equip_initial" ColumnName="B4_equip_initial" />
-          <ScalarProperty Name="B4_status_location" ColumnName="B4_status_location" />
-          <ScalarProperty Name="B4_status_time" ColumnName="B4_status_time" />
-          <ScalarProperty Name="B4_date" ColumnName="B4_date" />
-          <ScalarProperty Name="B4_status_code" ColumnName="B4_status_code" />
-          <ScalarProperty Name="B4_request_number" ColumnName="B4_request_number" />
-          <ScalarProperty Name="B4_SHC" ColumnName="B4_SHC" />
-          <ScalarProperty Name="EDI315_idnum" ColumnName="EDI315_idnum" />
-          <ScalarProperty Name="msg_idnum" ColumnName="msg_idnum" />
-          <ScalarProperty Name="EDI315_Detail_idnum" ColumnName="EDI315_Detail_idnum" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EDI315_Detail_N9">
-      <EntityTypeMapping TypeName="Context.EDI315_Detail_N9">
-        <MappingFragment StoreEntitySet="EDI315_Detail_N9">
-          <ScalarProperty Name="time_code" ColumnName="time_code" />
-          <ScalarProperty Name="time" ColumnName="time" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="free_form_description" ColumnName="free_form_description" />
-          <ScalarProperty Name="reference_id" ColumnName="reference_id" />
-          <ScalarProperty Name="reference_id_qualifier" ColumnName="reference_id_qualifier" />
-          <ScalarProperty Name="EDI315_Detail_idnum" ColumnName="EDI315_Detail_idnum" />
-          <ScalarProperty Name="msg_idnum" ColumnName="msg_idnum" />
-          <ScalarProperty Name="Detail_N9_idnum" ColumnName="Detail_N9_idnum" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EDI315_Detail_R4">
-      <EntityTypeMapping TypeName="Context.EDI315_Detail_R4">
-        <MappingFragment StoreEntitySet="EDI315_Detail_R4">
-          <ScalarProperty Name="province_code" ColumnName="province_code" />
-          <ScalarProperty Name="pier_number" ColumnName="pier_number" />
-          <ScalarProperty Name="terminal_name" ColumnName="terminal_name" />
-          <ScalarProperty Name="country_code" ColumnName="country_code" />
-          <ScalarProperty Name="port_name" ColumnName="port_name" />
-          <ScalarProperty Name="location_id" ColumnName="location_id" />
-          <ScalarProperty Name="location_qualifier" ColumnName="location_qualifier" />
-          <ScalarProperty Name="port_function_code" ColumnName="port_function_code" />
-          <ScalarProperty Name="EDI315_Detail_idnum" ColumnName="EDI315_Detail_idnum" />
-          <ScalarProperty Name="msg_idnum" ColumnName="msg_idnum" />
-          <ScalarProperty Name="Detail_R4_idnum" ColumnName="Detail_R4_idnum" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EDI315_Detail_R4_DTM">
-      <EntityTypeMapping TypeName="Context.EDI315_Detail_R4_DTM">
-        <MappingFragment StoreEntitySet="EDI315_Detail_R4_DTM">
-          <ScalarProperty Name="time_code" ColumnName="time_code" />
-          <ScalarProperty Name="time" ColumnName="time" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="datetime_qualifier" ColumnName="datetime_qualifier" />
-          <ScalarProperty Name="Detail_R4_idnum" ColumnName="Detail_R4_idnum" />
-          <ScalarProperty Name="msg_idnum" ColumnName="msg_idnum" />
-          <ScalarProperty Name="Detail_R4_DTM_idnum" ColumnName="Detail_R4_DTM_idnum" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

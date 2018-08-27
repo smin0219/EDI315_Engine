@@ -12,7 +12,7 @@ namespace EDI315_Engine
 {
     public partial class mainForm : Form
     {
-        string MSGTYPE = "315";
+        string msgType = "315";
         private EngineService engineService;
 
         public mainForm()
@@ -45,7 +45,7 @@ namespace EDI315_Engine
         private void timer_mainTimer_Tick(object sender, EventArgs e)
         {
             timer_mainTimer.Stop();
-            engineService.RunEngine(MSGTYPE);
+            engineService.RunEngine(msgType);
             //engineService.test();
             timer_mainTimer.Start();
         }

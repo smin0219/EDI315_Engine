@@ -26,23 +26,35 @@ namespace EDI315_Engine
             messageParsing = new MessageParsing();
             context = new DBContext();
         }
-
         public void RunEngine(string msgType)
         {
-            List<EDI_Messages> ediMsgList = GetMessage(msgType);
-        }
+            bool result = false;
+            List<EDI_Messages> ediMSGList = GetMSG(msgType);
 
-        private List<EDI_Messages> GetMessage(string msgType)
+            if (ediMSGList != null && ediMSGList.Count() > 0)
+            {
+                foreach(EDI_Messages row in ediMSGList)
+                {
+                    result = messageParsing.ParseMessage(msgType, row.msg_body, row.msg_idnum);
+                }
+            }
+            else
+            {
+                addListItemMainForm("There is no message - " + DateTime.Now);
+            }
+            
+        }
+        private List<EDI_Messages> GetMSG(string msgType)
         {
             List<EDI_Messages> list = new List<EDI_Messages>();
 
-            try
+            if (util.checkDBConnection())
             {
-
-            }
-            catch
-            {
-
+                using(DBContext context = new DBContext())
+                {
+                    list = context.EDI_Messages.Where(x => x.msg_type == msgType && x.process_status == "N").ToList();
+                    context.Dispose();
+                }
             }
             return list;
         }
@@ -50,7 +62,7 @@ namespace EDI315_Engine
         {
             try
             {
-                if (util.dbConnectionCheck())
+                if (util.checkDBConnection())
                 {
                     using (DBContext context = new DBContext())
                     {
@@ -70,7 +82,10 @@ namespace EDI315_Engine
                     string logMsg = "Date: " + DateTime.Now.ToString();
                     logMsg += "\r\nFunction: updateMSGStatus";
                     logMsg += "\r\nError Message: Not able to access DB.";
-                    util.insertLog_TextFile(logMsg);
+                    logMsg += "\r\n\r\n=====================================================================";
+                    logMsg += "=============================================================================";
+                    logMsg += "=============================================================================";
+                    util.insertLog_text(logMsg);
                 }
             }
             catch (DbEntityValidationException ex)
@@ -92,8 +107,8 @@ namespace EDI315_Engine
                     }
                 }
 
-                util.insertLog(msgType, msg_idnum, 0, 0, logMsg);
-                messageParsing.rollbackProcess(msg_idnum, msgType, "");
+                util.insertLog_DB(msgType, msg_idnum, 0, 0, logMsg);
+                //messageParsing.rollbackProcess(msg_idnum, msgType, "");
                 #endregion
             }
             catch (Exception ex)
@@ -103,32 +118,17 @@ namespace EDI315_Engine
                 logMsg += "\r\nFunction: updateMSGStatus";
                 logMsg += "\r\nError Message: \r\n";
                 logMsg += ex.ToString();
-                util.insertLog(msgType, msg_idnum, 0, 0, logMsg);
-                messageParsing.rollbackProcess(msg_idnum, msgType, "");
+                util.insertLog_DB(msgType, msg_idnum, 0, 0, logMsg);
+               // messageParsing.rollbackProcess(msg_idnum, msgType, "");
                 #endregion
             }
         }
-        private void checkDataExists(int msg_idnum, string msg_type)
-        {
-            try
-            {
-                using (DBContext context = new DBContext())
-                {
-                    if(context.EDI315.Where(x=>x.msg_idnum == msg_idnum).Any())
-                        messageParsing.rollbackProcess(msg_idnum, msg_type, "");
-
-                    context.Dispose();
-                }
-            }
-            catch { }
-        }
-
         public void test()
         {
             // if process done, update status
             for (int i = 0; i < 3; i++)
             {
-                util.insertLog("315", 0, 0, 0, "error message here");
+                util.insertLog_DB("315", 0, 0, 0, "error message here");
                 addListItemMainForm(" proccessed: " + DateTime.Now);
                 System.Threading.Thread.Sleep(5000);
             }

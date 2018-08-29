@@ -15,7 +15,7 @@ namespace EDI315_Engine.Entity
         //B403
         public string shipment_status_code { get; set; }
         //B404
-        public string date { get; set; }
+        public DateTime shipment_status_datetime { get; set; }
         //B405
         public string status_time { get; set; }
         //B406

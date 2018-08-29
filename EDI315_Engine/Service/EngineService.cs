@@ -29,11 +29,11 @@ namespace EDI315_Engine
         public void RunEngine(string msgType)
         {
             bool result = false;
-            List<EDI_Messages> ediMSGList = GetMSG(msgType);
+            List<EDI_Messages> ediMsgList = GetMsg(msgType);
 
-            if (ediMSGList != null && ediMSGList.Count() > 0)
+            if (ediMsgList != null && ediMsgList.Count() > 0)
             {
-                foreach(EDI_Messages row in ediMSGList)
+                foreach(EDI_Messages row in ediMsgList)
                 {
                     result = messageParsing.ParseMessage(msgType, row.msg_body, row.msg_idnum);
                 }
@@ -44,7 +44,7 @@ namespace EDI315_Engine
             }
             
         }
-        private List<EDI_Messages> GetMSG(string msgType)
+        private List<EDI_Messages> GetMsg(string msgType)
         {
             List<EDI_Messages> list = new List<EDI_Messages>();
 
@@ -58,7 +58,7 @@ namespace EDI315_Engine
             }
             return list;
         }
-        private void updateMSGStatus(int msg_idnum, string msgType, string status)
+        private void updateMsgStatus(int msg_idnum, string msgType, string status)
         {
             try
             {

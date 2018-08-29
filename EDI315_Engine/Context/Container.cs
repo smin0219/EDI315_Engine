@@ -41,23 +41,28 @@ namespace EDI315_Engine.Context
         public Nullable<System.DateTime> shipment_status_datetime { get; set; }
         public Nullable<System.DateTime> scheduled_sailing_date { get; set; }
         public Nullable<System.DateTime> scheduled_discharge_date { get; set; }
-        public string place_of_receipt_location { get; set; }
+        public string place_of_receipt_location_qualifier { get; set; }
+        public string place_of_receipt_location_identifier { get; set; }
         public string place_of_receipt_portname { get; set; }
         public string place_of_receipt_country { get; set; }
         public Nullable<System.DateTime> place_of_receipt_datetime { get; set; }
-        public string port_of_loading_location { get; set; }
+        public string port_of_loading_location_qualifier { get; set; }
+        public string port_of_loading_location_identifier { get; set; }
         public string port_of_loading_portname { get; set; }
         public string port_of_loading_country { get; set; }
         public Nullable<System.DateTime> port_of_loading_datetime { get; set; }
-        public string port_of_discharge_location { get; set; }
+        public string port_of_discharge_location_qualifier { get; set; }
+        public string port_of_discharge_location_identifier { get; set; }
         public string port_of_discharge_portname { get; set; }
         public string port_of_discharge_country { get; set; }
         public Nullable<System.DateTime> port_of_discharge_datetime { get; set; }
-        public string place_of_delivery_location { get; set; }
+        public string place_of_delivery_location_qualifier { get; set; }
+        public string place_of_delivery_location_identifier { get; set; }
         public string place_of_delivery_portname { get; set; }
         public string place_of_delivery_country { get; set; }
         public Nullable<System.DateTime> place_of_delivery_datetime { get; set; }
-        public string MBL_destination_location { get; set; }
+        public string MBL_destination_location_qualifier { get; set; }
+        public string MBL_destination_location_identifier { get; set; }
         public string MBL_destination_portname { get; set; }
         public string MBL_destination_country { get; set; }
         public Nullable<System.DateTime> MBL_destination_datetime { get; set; }

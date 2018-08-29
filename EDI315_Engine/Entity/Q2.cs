@@ -9,15 +9,15 @@ namespace EDI315_Engine.Entity
     class Q2
     {
         //Q201
-        public int vessel_code { get; set; }
+        public string vessel_code { get; set; }
         //Q202
         public string country_code { get; set; }
         //Q203
         public string date { get; set; }
         //Q204
-        public string scheduled_sailing_date { get; set; }
+        public DateTime scheduled_sailing_date { get; set; }
         //Q205
-        public string scheduled_discharge_date { get; set; }
+        public DateTime scheduled_discharge_date { get; set; }
         //Q206
         public int landing_quantity { get; set; }
         //Q207

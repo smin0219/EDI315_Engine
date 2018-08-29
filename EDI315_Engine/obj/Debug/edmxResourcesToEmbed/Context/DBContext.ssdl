@@ -18,7 +18,7 @@
     </Key>
     <Property Name="container_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MBL_number" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="container_number" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="container_number" Type="varchar" MaxLength="30" />
     <Property Name="equipment_type" Type="varchar" MaxLength="4" />
     <Property Name="vessel_code" Type="varchar" MaxLength="8" />
     <Property Name="vessel_name" Type="varchar" MaxLength="28" />

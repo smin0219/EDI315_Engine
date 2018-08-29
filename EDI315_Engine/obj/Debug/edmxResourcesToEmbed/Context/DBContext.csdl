@@ -29,7 +29,7 @@
     </Key>
     <Property Name="container_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MBL_number" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="container_number" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="container_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="equipment_type" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="vessel_code" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
     <Property Name="vessel_name" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />

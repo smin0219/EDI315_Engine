@@ -125,5 +125,19 @@ namespace EDI315_Engine
                 sw.Close();
             }
         }
+
+        public string buildLogMsg(string function, string errMsg)
+        {
+            string logMsg = "";
+
+            logMsg += "Date: " + DateTime.Now.ToString();
+            logMsg += "\r\nFunction: "+function;
+            logMsg += "\r\nError Message: \r\n" + errMsg;
+            logMsg += "\r\n\r\n=====================================================================";
+            logMsg += "=============================================================================";
+            logMsg += "=============================================================================";
+
+            return logMsg;
+        }
     }
 }

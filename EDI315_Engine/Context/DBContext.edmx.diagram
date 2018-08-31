@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8d89671481c4457296ce50959ca52e0f" Name="Diagram1" ZoomLevel="121">
-        <EntityTypeShape EntityType="Context.Activity_Place" Width="1.5" PointX="3" PointY="16.125" />
+        <EntityTypeShape EntityType="Context.Activity_Place" Width="2.875" PointX="3" PointY="16" />
         <EntityTypeShape EntityType="Context.Container" Width="1.5" PointX="0.75" PointY="2.375" />
         <EntityTypeShape EntityType="Context.EDI_Messages" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="Context.Engines_Log" Width="1.5" PointX="2.75" PointY="3.75" />

@@ -197,7 +197,7 @@ namespace EDI315_Engine.Service
                             break;
                         case "SE":
                             #region SE
-                            UpdateDB();
+                            UpdateDB(msg_idnum);
                             #endregion
                             break;
                         case "GE": break;
@@ -219,7 +219,7 @@ namespace EDI315_Engine.Service
         /// <summary>
         /// Update all data from entities to created/existing row in DB.
         /// </summary>
-        private void UpdateDB()
+        private void UpdateDB(int msg_idnum)
         {
             string BM_number = null;
             string EQ_number = null;
@@ -274,7 +274,7 @@ namespace EDI315_Engine.Service
                         context.Container.Add(container);
                     }
                 }
-                UpdateEntities(container);
+                UpdateEntities(container, msg_idnum);
                 context.SaveChanges();
             }
             else
@@ -284,12 +284,12 @@ namespace EDI315_Engine.Service
                 util.insertLog_text(logMsg);
             }
         }
-        private Container UpdateEntities(Container container)
+        private Container UpdateEntities(Container container, int msg_idnum)
         {
             container = UpdateB4(container);
             container = UpdateN9(container);
             container = UpdateQ2(container);
-            container = UpdateR4(container);
+            container = UpdateR4(container, msg_idnum);
             return container;
         }
         private Container UpdateB4(Container container)
@@ -577,7 +577,7 @@ namespace EDI315_Engine.Service
 
             return container;
         }
-        private Container UpdateR4(Container container)
+        private Container UpdateR4(Container container, int msg_idnum)
         {
             bool isLocationIdentifierExist = false;
             bool isPortNameExist = false;
@@ -727,7 +727,38 @@ namespace EDI315_Engine.Service
                         container.MBL_destination_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
-                    case "5": break;
+                    case "5":
+
+                        Activity_Place activity_place = null;
+
+                        activity_place = (context.Activity_Place.Where(x => x.activity_place_idnum == msg_idnum)).SingleOrDefault();
+
+                        if (activity_place == null)
+                        {
+                            activity_place = new Activity_Place { container_idnum = msg_idnum, created_date = DateTime.Now };
+                        }
+
+                        if (r4.location_identifier != null)
+                        {
+                            activity_place.activity_place_location = r4.location_identifier;
+                        }
+                        if (r4.port_name != null)
+                        {
+                            activity_place.activity_place_portname = r4.port_name;
+                        }
+
+                        //Either one of these or both must exist; Otherwise invalid format
+                        if (isLocationIdentifierExist == false && isPortNameExist == false)
+                        {
+                            logMsg = util.buildLogMsg("UpdateR4", "Invalid format: " +
+                                "Both location identification and port name do not exist");
+                            util.insertLog_text(logMsg);
+                            break;
+                        }
+
+                        activity_place.activity_place_country = r4.country_code;
+                        activity_place.activity_place_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        break;
 
                     default:
                         logMsg = util.buildLogMsg("UpdateR4", "Invalid format: " +

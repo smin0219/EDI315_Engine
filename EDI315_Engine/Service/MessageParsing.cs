@@ -20,9 +20,7 @@ namespace EDI315_Engine.Service
         Q2 q2 = null;
         List<N9> n9_list = null;
         List<R4> r4_list = null;
-
         List<string> EDI315_headers = new List<string> { "ISA", "GS", "ST", "B4", "N9", "Q2", "R4", "DTM", "SE", "GE", "IEA" };
-
         public MessageParsing()
         {
             util = new Util();
@@ -47,6 +45,7 @@ namespace EDI315_Engine.Service
             string[] currentRowTemp = null;
             string[] currentRow = new string[30];
             string header = "";
+            string logMsg = "";
             int convertToInt = 0;
             decimal convertToDecimal = 0;
 
@@ -86,9 +85,8 @@ namespace EDI315_Engine.Service
                 }
                 else
                 {
-                    string logMsg = util.buildLogMsg("ParseMessage", "Invalid format message.");
+                    logMsg = util.buildLogMsg("ParseMessage", "Invalid format message.");
                     util.insertLog_text(logMsg);
-
                     result = false;
                     break;
                 }
@@ -99,7 +97,6 @@ namespace EDI315_Engine.Service
                 {
                     convertToInt = 0;
                     convertToDecimal = 0;
-
                     switch (header)
                     {
                         case "ISA": break;
@@ -115,7 +112,7 @@ namespace EDI315_Engine.Service
                             }
                             else
                             {
-                                string logMsg = util.buildLogMsg("ParseMessage", "ST: Invalid Transaction Set Identifier Code (ST01/143).");
+                                logMsg = util.buildLogMsg("ParseMessage", "ST: Invalid Transaction Set Identifier Code (ST01/143).");
                                 util.insertLog_text(logMsg);
                             }
                             #endregion
@@ -205,6 +202,10 @@ namespace EDI315_Engine.Service
                             break;
                         case "GE": break;
                         case "IEA": break;
+                        default:
+                            logMsg = util.buildLogMsg("ParseMessage", "Invalid header");
+                            util.insertLog_text(logMsg);
+                            break;
                     }
                 }
                 if(header == "IEA")
@@ -214,24 +215,6 @@ namespace EDI315_Engine.Service
                 }
             }
             return result;
-        }
-        public DateTime changeDateTimeFormat(string date, string time)
-        {
-            string dateTime = null;
-
-            date = date.Substring(0, 4) + "-" + date.Substring(4, 2) + "-" + date.Substring(6);
-
-            if (time != null)
-            {
-                time = time.Substring(0, 2) + ":" + time.Substring(2, 2);
-                dateTime = date + "T" + time;
-            }
-            else
-            {
-                dateTime = date;
-            }
-
-            return DateTime.Parse(dateTime);
         }
         /// <summary>
         /// Update all data from entities to created/existing row in DB.
@@ -264,6 +247,11 @@ namespace EDI315_Engine.Service
                     isEQExist = true;
                 }
             }
+
+            /*
+             * Initialize DB Container entity before inserting into DB
+             */ 
+
             if(isBMExist==true)
             {
                 //IF MBL and container number both exist
@@ -276,6 +264,7 @@ namespace EDI315_Engine.Service
                         context.Container.Add(container);
                     }
                 }
+                //If only MBL number exists.
                 else
                 {
                     container = context.Container.Where(x => x.MBL_number == BM_number && x.container_number == null).SingleOrDefault();
@@ -313,211 +302,211 @@ namespace EDI315_Engine.Service
             {
 
                 case "D":
-                    container.actual_door_delivery_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.actual_door_delivery_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.actual_door_delivery_location = b4.status_location;
                     break;
                 case "I":
-                    container.arrival_at_first_port_of_load_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrival_at_first_port_of_load_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.arrival_at_first_port_of_load_location = b4.status_location;
                     break;
                 case "AE":
-                    container.loaded_on_board_at_first_port_of_load_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_on_board_at_first_port_of_load_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.loaded_on_board_at_first_port_of_load_location = b4.status_location;
                     break;
                 case "AF":
-                    container.actual_door_pickup_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.actual_door_pickup_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.actual_door_pickup_location = b4.status_location;
                     break;
                 case "AL":
-                    container.first_loaded_on_rail_under_outbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.first_loaded_on_rail_under_outbound_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.first_loaded_on_rail_under_outbound_location = b4.status_location;
                     break;
                 case "AM":
-                    container.loaded_on_truck_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_on_truck_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.loaded_on_truck_location = b4.status_location;
                     break;
                 case "AR":
-                    container.arrival_at_last_intermodal_hub_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrival_at_last_intermodal_hub_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.arrival_at_last_intermodal_hub_location = b4.status_location;
                     break;
                 case "CR":
-                    container.carrier_released_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.carrier_released_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.carrier_released_location = b4.status_location;
                     break;
                 case "CT":
-                    container.customs_released_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.customs_released_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.customs_released_location = b4.status_location;
                     break;
                 case "CU":
-                    container.carrier_and_customs_released_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.carrier_and_customs_released_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.carrier_and_customs_released_location = b4.status_location;
                     break;
                 case "EE":
-                    container.empty_container_picked_up_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.empty_container_picked_up_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.empty_container_picked_up_location = b4.status_location;
                     break;
                 case "NO":
-                    container.freight_charges_settled_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.freight_charges_settled_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.freight_charges_settled_location = b4.status_location;
                     break;
                 case "OA":
-                    container.full_container_received_by_carrier_at_origin_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.full_container_received_by_carrier_at_origin_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.full_container_received_by_carrier_at_origin_location = b4.status_location;
                     break;
                 case "PA":
-                    container.customs_hold_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.customs_hold_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.customs_hold_location = b4.status_location;
                     break;
                 case "RD":
-                    container.empty_container_returned_to_carrier_at_destination_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.empty_container_returned_to_carrier_at_destination_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.empty_container_returned_to_carrier_at_destination_location = b4.status_location;
                     break;
                 case "RL":
-                    container.departure_from_first_intermodal_hub_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.departure_from_first_intermodal_hub_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.departure_from_first_intermodal_hub_location = b4.status_location;
                     break;
                 case "UR":
-                    container.last_deramp_under_inbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.last_deramp_under_inbound_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.last_deramp_under_inbound_location = b4.status_location;
                     break;
                 case "UV":
-                    container.discharged_from_vessel_at_last_port_of_discharged_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_from_vessel_at_last_port_of_discharged_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.discharged_from_vessel_at_last_port_of_discharged_location = b4.status_location;
                     break;
                 case "VA":
-                    container.last_vessel_arrival_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.last_vessel_arrival_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.last_vessel_arrival_location = b4.status_location;
                     break;
                 case "VD":
-                    container.first_vessel_departure_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.first_vessel_departure_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.first_vessel_departure_location = b4.status_location;
                     break;
                 case "W1":
-                    container.gate_out_full_at_inland_terminal_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.gate_out_full_at_inland_terminal_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.gate_out_full_at_inland_terminal_location = b4.status_location;
                     break;
                 case "W2":
-                    container.gate_in_full_at_inland_terminal_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.gate_in_full_at_inland_terminal_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.gate_in_full_at_inland_terminal_location = b4.status_location;
                     break;
                 case "W3":
-                    container.equipment_delayed_due_to_transportation_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.equipment_delayed_due_to_transportation_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.equipment_delayed_due_to_transportation_location = b4.status_location;
                     break;
                 case "W4":
-                    container.arrived_at_facility_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrived_at_facility_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.arrived_at_facility_location = b4.status_location;
                     break;
                 case "W5":
-                    container.departed_from_facility_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.departed_from_facility_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.departed_from_facility_location = b4.status_location;
                     break;
                 case "W6":
-                    container.loaded_at_port_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_at_port_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.loaded_at_port_location = b4.status_location;
                     break;
                 case "W7":
-                    container.vessel_arrival_at_port_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.vessel_arrival_at_port_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.vessel_arrival_at_port_location = b4.status_location;
                     break;
                 case "W8":
-                    container.discharged_from_vessel_at_port_of_discharge_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_from_vessel_at_port_of_discharge_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.discharged_from_vessel_at_port_of_discharge_location = b4.status_location;
                     break;
                 case "X1":
-                    container.full_container_received_by_carrier_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.full_container_received_by_carrier_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.full_container_received_by_carrier_location = b4.status_location;
                     break;
                 case "X2":
-                    container.vessel_departure_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.vessel_departure_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.vessel_departure_location = b4.status_location;
                     break;
                 case "X3":
-                    container.container_repacked_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_repacked_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_repacked_location = b4.status_location;
                     break;
                 case "X4":
-                    container.container_vanned_at_origin_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_vanned_at_origin_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_vanned_at_origin_location = b4.status_location;
                     break;
                 case "X5":
-                    container.container_devanned_at_origin_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_devanned_at_origin_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_devanned_at_origin_location = b4.status_location;
                     break;
                 case "X6":
-                    container.container_vanned_at_destination_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_vanned_at_destination_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_vanned_at_destination_location = b4.status_location;
                     break;
                 case "X7":
-                    container.container_devanned_at_destination_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_devanned_at_destination_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_devanned_at_destination_location = b4.status_location;
                     break;
                 case "X8":
-                    container.container_transferred_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_transferred_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_transferred_location = b4.status_location;
                     break;
                 case "X9":
-                    container.carrier_held_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.carrier_held_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.carrier_held_location = b4.status_location;
                     break;
                 case "Y1":
-                    container.container_available_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_available_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_available_location = b4.status_location;
                     break;
                 case "Y2":
-                    container.arrival_at_intermodal_hub_by_rail_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrival_at_intermodal_hub_by_rail_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.arrival_at_intermodal_hub_by_rail_location = b4.status_location;
                     break;
                 case "Y3":
-                    container.loaded_on_rail_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_on_rail_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.loaded_on_rail_location = b4.status_location;
                     break;
                 case "Y4":
-                    container.rail_move_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.rail_move_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.rail_move_location = b4.status_location;
                     break;
                 case "Y5":
-                    container.loaded_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.loaded_location = b4.status_location;
                     break;
                 case "Y7":
-                    container.discharged_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.discharged_location = b4.status_location;
                     break;
                 case "Y9":
-                    container.container_picked_up_from_port_of_discharge_transhipment_port_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_picked_up_from_port_of_discharge_transhipment_port_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.container_picked_up_from_port_of_discharge_transhipment_port_location = b4.status_location;
                     break;
                 case "Z1":
-                    container.last_deramp_under_outbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.last_deramp_under_outbound_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.last_deramp_under_outbound_location = b4.status_location;
                     break;
                 case "Z2":
-                    container.transhipment_vessel_arrival_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.transhipment_vessel_arrival_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.transhipment_vessel_arrival_location = b4.status_location;
                     break;
                 case "Z3":
-                    container.loaded_at_port_of_transhipment_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_at_port_of_transhipment_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.loaded_at_port_of_transhipment_location = b4.status_location;
                     break;
                 case "Z4":
-                    container.discharged_at_port_of_transhipment_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_at_port_of_transhipment_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.discharged_at_port_of_transhipment_location = b4.status_location;
                     break;
                 case "Z5":
-                    container.transhipment_vessel_departure_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.transhipment_vessel_departure_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.transhipment_vessel_departure_location = b4.status_location;
                     break;
                 case "Z6":
-                    container.intermodal_departure_from_last_port_of_discharge_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.intermodal_departure_from_last_port_of_discharge_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.intermodal_departure_from_last_port_of_discharge_location = b4.status_location;
                     break;
                 case "Z7":
-                    container.first_loaded_on_rail_under_inbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.first_loaded_on_rail_under_inbound_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.first_loaded_on_rail_under_inbound_location = b4.status_location;
                     break;
                 case "Z8":
-                    container.picked_up_at_final_destination_for_delivery_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.picked_up_at_final_destination_for_delivery_time = util.changeDateTimeFormat(b4.date, b4.status_time);
                     container.picked_up_at_final_destination_for_delivery_location = b4.status_location;
                     break;
                 default:
@@ -583,8 +572,8 @@ namespace EDI315_Engine.Service
             container.lading_quantity = q2.landing_quantity;
             container.weight = q2.weight;
             container.volume = q2.volume;
-            container.scheduled_sailing_date = changeDateTimeFormat(q2.scheduled_sailing_date, null);
-            container.scheduled_discharge_date = changeDateTimeFormat(q2.scheduled_discharge_date, null);
+            container.scheduled_sailing_date = util.changeDateTimeFormat(q2.scheduled_sailing_date, null);
+            container.scheduled_discharge_date = util.changeDateTimeFormat(q2.scheduled_discharge_date, null);
 
             return container;
         }
@@ -623,7 +612,7 @@ namespace EDI315_Engine.Service
                         }
 
                         container.place_of_receipt_country = r4.country_code;
-                        container.place_of_receipt_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        container.place_of_receipt_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
                     case "L":
@@ -651,7 +640,7 @@ namespace EDI315_Engine.Service
                         }
 
                         container.port_of_loading_country = r4.country_code;
-                        container.port_of_loading_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        container.port_of_loading_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
                     case "D":
@@ -679,7 +668,7 @@ namespace EDI315_Engine.Service
                         }
 
                         container.port_of_discharge_country = r4.country_code;
-                        container.port_of_discharge_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        container.port_of_discharge_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
                     case "E": 
@@ -707,7 +696,7 @@ namespace EDI315_Engine.Service
                         }
 
                         container.place_of_delivery_country = r4.country_code;
-                        container.place_of_delivery_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        container.place_of_delivery_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
                     case "M": 
@@ -735,7 +724,7 @@ namespace EDI315_Engine.Service
                         }
 
                         container.MBL_destination_country = r4.country_code;
-                        container.MBL_destination_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        container.MBL_destination_datetime = util.changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
                     case "5": break;

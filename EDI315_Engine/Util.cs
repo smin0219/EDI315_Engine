@@ -24,7 +24,6 @@ namespace EDI315_Engine
         /// leave log messages and try to connect again after 30 min.
         /// </summary>
         /// <returns>True: If it is connected, otherwise return False</returns>
-
         public bool checkDBConnection()
         {
             bool isConnected = false;
@@ -63,7 +62,6 @@ namespace EDI315_Engine
             }
             return isConnected;
         }
-
         /// <summary>
         /// Insert log messages to the DB
         /// </summary>
@@ -72,7 +70,6 @@ namespace EDI315_Engine
         /// <param name="EDI_idnum"></param>
         /// <param name="Detail_idnum"></param>
         /// <param name="logMsg"></param>
-
         public void insertLog_DB(string msgType, int msg_idnum, int EDI_idnum, int Detail_idnum, string logMsg)
         {
             if (checkDBConnection())
@@ -94,13 +91,11 @@ namespace EDI315_Engine
                 }
             }
         }
-
         /// <summary>
         /// Create a text file (if it does not exist) and insert log messages
         /// into the file.
         /// </summary>
         /// <param name="logMsg">Log message to insert into the created/exist file</param>
-
         public void insertLog_text(string logMsg)
         {
             string FileLocation = @"C:\Engines_Log";
@@ -125,7 +120,6 @@ namespace EDI315_Engine
                 sw.Close();
             }
         }
-
         public string buildLogMsg(string function, string errMsg)
         {
             string logMsg = "";
@@ -138,6 +132,24 @@ namespace EDI315_Engine
             logMsg += "=============================================================================";
 
             return logMsg;
+        }
+        public DateTime changeDateTimeFormat(string date, string time)
+        {
+            string dateTime = null;
+
+            date = date.Substring(0, 4) + "-" + date.Substring(4, 2) + "-" + date.Substring(6);
+
+            if (time != null)
+            {
+                time = time.Substring(0, 2) + ":" + time.Substring(2, 2);
+                dateTime = date + "T" + time;
+            }
+            else
+            {
+                dateTime = date;
+            }
+
+            return DateTime.Parse(dateTime);
         }
     }
 }

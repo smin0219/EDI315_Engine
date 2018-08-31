@@ -29,18 +29,30 @@ namespace EDI315_Engine
         public void RunEngine(string msgType)
         {
             bool result = false;
+            int idnum = 0;
             List<EDI_Messages> ediMsgList = GetMsg(msgType);
 
             if (ediMsgList != null && ediMsgList.Count() > 0)
             {
                 foreach(EDI_Messages row in ediMsgList)
                 {
+                    idnum = row.msg_idnum;
                     result = messageParsing.ParseMessage(msgType, row.msg_body, row.msg_idnum);
+                }
+
+                if(result == true)
+                {
+                    addListItemMainForm("Message parsed successfully. - " + DateTime.Now);
+                    UpdateMsgStatus(idnum, msgType, "Y");
+                }
+                else
+                {
+                    addListItemMainForm("Error occured while parsing a message. - " + DateTime.Now);
                 }
             }
             else
             {
-                addListItemMainForm("There is no message - " + DateTime.Now);
+                addListItemMainForm("There is no message. - " + DateTime.Now);
             }
             
         }
@@ -58,7 +70,7 @@ namespace EDI315_Engine
             }
             return list;
         }
-        private void updateMsgStatus(int msg_idnum, string msgType, string status)
+        private void UpdateMsgStatus(int msg_idnum, string msgType, string status)
         {
             try
             {
@@ -108,7 +120,6 @@ namespace EDI315_Engine
                 }
 
                 util.insertLog_DB(msgType, msg_idnum, 0, 0, logMsg);
-                //messageParsing.rollbackProcess(msg_idnum, msgType, "");
                 #endregion
             }
             catch (Exception ex)
@@ -119,18 +130,7 @@ namespace EDI315_Engine
                 logMsg += "\r\nError Message: \r\n";
                 logMsg += ex.ToString();
                 util.insertLog_DB(msgType, msg_idnum, 0, 0, logMsg);
-               // messageParsing.rollbackProcess(msg_idnum, msgType, "");
                 #endregion
-            }
-        }
-        public void test()
-        {
-            // if process done, update status
-            for (int i = 0; i < 3; i++)
-            {
-                util.insertLog_DB("315", 0, 0, 0, "error message here");
-                addListItemMainForm(" proccessed: " + DateTime.Now);
-                System.Threading.Thread.Sleep(5000);
             }
         }
     }

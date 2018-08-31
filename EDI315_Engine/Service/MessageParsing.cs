@@ -28,7 +28,6 @@ namespace EDI315_Engine.Service
             util = new Util();
             context = new DBContext();
         }
-
         /// <summary>
         /// Parse the message from EDI_Message and insert into entities.
         /// </summary>
@@ -36,7 +35,6 @@ namespace EDI315_Engine.Service
         /// <param name="msg_body">Message body that needs to be parsed</param>
         /// <param name="msg_idnum"></param>
         /// <returns></returns>
-
         public bool ParseMessage(string msg_type, string msg_body, int msg_idnum)
         {
             bool result = false;
@@ -45,7 +43,7 @@ namespace EDI315_Engine.Service
             string msgType = msg_type;
             string msgBody = msg_body;
             int msgIdnum = msg_idnum;
-            string[] msgBodyArr = null;
+            string[] msgArr = null;
             string[] currentRowTemp = null;
             string[] currentRow = new string[30];
             string header = "";
@@ -57,10 +55,11 @@ namespace EDI315_Engine.Service
             #endregion
 
             msgBody = Regex.Replace(msg_body, @"^\s+$[\r\n]*", "", RegexOptions.Multiline);
-            msgBodyArr = msgBody.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            msgArr = msgBody.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-            foreach(string row in msgBodyArr)
+            foreach(string row in msgArr)
             {
+                string msg;
                 // Clear array before insert new row into array
                 if (currentRowTemp != null)
                 {
@@ -73,8 +72,8 @@ namespace EDI315_Engine.Service
 
                 // Insert data into dynamically allocated memory array, and
                 // copy to statically allocated memory array.
-
-                currentRowTemp = row.Split(new[] { "*" }, StringSplitOptions.None);
+                msg = row.Trim();
+                currentRowTemp = msg.Split(new[] { "*" }, StringSplitOptions.None);
                 Array.Copy(currentRowTemp, 0, currentRow, 0, currentRowTemp.Length);
 
                 // Begin to parse engine.
@@ -216,7 +215,6 @@ namespace EDI315_Engine.Service
             }
             return result;
         }
-
         public DateTime changeDateTimeFormat(string date, string time)
         {
             string dateTime = null;
@@ -238,68 +236,71 @@ namespace EDI315_Engine.Service
         /// <summary>
         /// Update all data from entities to created/existing row in DB.
         /// </summary>
-
         private void UpdateDB()
         {
-            string MBLRefId = null;
-            string containerRefId = null;
-            List<Container> isMBLExist = null;
-            List<Container> isContainerExist = null;
-            bool isBMChecked = false;
-            bool isEQChecked = false;
+            string BM_number = null;
+            string EQ_number = null;
+            string logMsg = "";
+            bool isBMExist = false;
+            bool isEQExist = false;
 
             Container container = null;
 
-            /* Get MBL and Container number first from the parsed data to check 
+            /* 
+             * Get MBL and Container number first from the parsed data to check 
              * Whether the data that has same MBL and Container number has been processed or not.
              */
-            
-            foreach(N9 n9 in n9_list)
+
+            foreach (N9 n9 in n9_list)
             {
-                /*
-                 * If BM number and EQ number is found, break from loop 
-                 */
-                if (isBMChecked == true && isEQChecked == true)
-                {
-                    break;
-                }
-
-                /*
-                 * Check whether there is a row that has same MBL number or not in DB
-                 */  
-
                 if(n9.reference_identification_qualifier == "BM")
                 {
-                    MBLRefId = n9.reference_identification;
-                    isMBLExist = (context.Container.Where(x => x.MBL_number == MBLRefId)).ToList();
-                    isBMChecked = true;
+                    BM_number = n9.reference_identification;
+                    isBMExist = true;
                 }
-
-                /*
-                 * Check whether there is a row that has same MBL number AND container number or not in DB
-                 */
-
-                if (n9.reference_identification_qualifier == "EQ" && isMBLExist != null)
+                if(n9.reference_identification_qualifier == "EQ")
                 {
-                    containerRefId = n9.reference_identification;
-                    isContainerExist = (context.Container.Where(x => x.MBL_number == MBLRefId && x.container_number == containerRefId)).ToList();
-                    isEQChecked = true;
+                    EQ_number = n9.reference_identification;
+                    isEQExist = true;
                 }
             }
-
-            /* 
-             * Same MBL has been processed before with this MBL number.
-             * Update data into the existing MBL. 
-             */
-
-
+            if(isBMExist==true)
+            {
+                //IF MBL and container number both exist
+                if(isBMExist==true && isEQExist == true)
+                {
+                    container = context.Container.Where(x => x.MBL_number == BM_number && x.container_number == EQ_number).SingleOrDefault();
+                    if (container == null)
+                    {
+                        container = new Container{MBL_number=BM_number, container_number=EQ_number, created_date=DateTime.Now};
+                        context.Container.Add(container);
+                    }
+                }
+                else
+                {
+                    container = context.Container.Where(x => x.MBL_number == BM_number && x.container_number == null).SingleOrDefault();
+                    if (container == null)
+                    {
+                        container = new Container { MBL_number = BM_number, created_date = DateTime.Now };
+                        context.Container.Add(container);
+                    }
+                }
+                UpdateEntities(container);
+                context.SaveChanges();
+            }
+            else
+            {
+                logMsg = util.buildLogMsg("UpdateDB", "Invalid format: " +
+                                "MBL number does not exist");
+                util.insertLog_text(logMsg);
+            }
         }
         private Container UpdateEntities(Container container)
         {
             container = UpdateB4(container);
             container = UpdateN9(container);
             container = UpdateQ2(container);
-            //container = UpdateR4(container);
+            container = UpdateR4(container);
             return container;
         }
         private Container UpdateB4(Container container)
@@ -537,6 +538,12 @@ namespace EDI315_Engine.Service
                     case "BM": break;
                     case "EQ": break;
                     case "BN":
+                        container.booking_number = n9.reference_identification;
+                        break;
+                    case "CR":
+                        container.booking_number = n9.reference_identification;
+                        break;
+                    case "SCA":
                         container.booking_number = n9.reference_identification;
                         break;
                     case "SN":

@@ -19,7 +19,6 @@
     <Property Name="container_idnum" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MBL_number" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="container_number" Type="varchar" MaxLength="30" />
-    <Property Name="equipment_type" Type="varchar" MaxLength="4" />
     <Property Name="vessel_code" Type="varchar" MaxLength="8" />
     <Property Name="vessel_name" Type="varchar" MaxLength="28" />
     <Property Name="voyage_number" Type="varchar" MaxLength="10" />
@@ -33,27 +32,33 @@
     <Property Name="lading_quantity" Type="int" />
     <Property Name="weight" Type="decimal" Precision="18" Scale="2" />
     <Property Name="volume" Type="decimal" Precision="18" Scale="2" />
-    <Property Name="shipment_status_code" Type="varchar" MaxLength="2" />
-    <Property Name="shipment_status_datetime" Type="datetime" />
     <Property Name="scheduled_sailing_date" Type="datetime" />
     <Property Name="scheduled_discharge_date" Type="datetime" />
-    <Property Name="place_of_receipt_location" Type="varchar" MaxLength="30" />
+    <Property Name="shipment_status_code" Type="varchar" MaxLength="2" />
+    <Property Name="equipment_type" Type="varchar" MaxLength="4" />
+    <Property Name="equipment_status_code" Type="varchar" MaxLength="2" />
+    <Property Name="place_of_receipt_location_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="place_of_receipt_location_identifier" Type="varchar" MaxLength="30" />
     <Property Name="place_of_receipt_portname" Type="varchar" MaxLength="24" />
     <Property Name="place_of_receipt_country" Type="varchar" MaxLength="3" />
     <Property Name="place_of_receipt_datetime" Type="datetime" />
-    <Property Name="port_of_loading_location" Type="varchar" MaxLength="30" />
+    <Property Name="port_of_loading_location_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="port_of_loading_location_identifier" Type="varchar" MaxLength="30" />
     <Property Name="port_of_loading_portname" Type="varchar" MaxLength="24" />
     <Property Name="port_of_loading_country" Type="varchar" MaxLength="3" />
     <Property Name="port_of_loading_datetime" Type="datetime" />
-    <Property Name="port_of_discharge_location" Type="varchar" MaxLength="30" />
+    <Property Name="port_of_discharge_location_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="port_of_discharge_location_identifier" Type="varchar" MaxLength="30" />
     <Property Name="port_of_discharge_portname" Type="varchar" MaxLength="24" />
     <Property Name="port_of_discharge_country" Type="varchar" MaxLength="3" />
     <Property Name="port_of_discharge_datetime" Type="datetime" />
-    <Property Name="place_of_delivery_location" Type="varchar" MaxLength="30" />
+    <Property Name="place_of_delivery_location_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="place_of_delivery_location_identifier" Type="varchar" MaxLength="30" />
     <Property Name="place_of_delivery_portname" Type="varchar" MaxLength="24" />
     <Property Name="place_of_delivery_country" Type="varchar" MaxLength="3" />
     <Property Name="place_of_delivery_datetime" Type="datetime" />
-    <Property Name="MBL_destination_location" Type="varchar" MaxLength="30" />
+    <Property Name="MBL_destination_location_qualifier" Type="varchar" MaxLength="2" />
+    <Property Name="MBL_destination_location_identifier" Type="varchar" MaxLength="30" />
     <Property Name="MBL_destination_portname" Type="varchar" MaxLength="24" />
     <Property Name="MBL_destination_country" Type="varchar" MaxLength="3" />
     <Property Name="MBL_destination_datetime" Type="datetime" />
@@ -110,8 +115,8 @@
     <Property Name="departed_from_facility_location" Type="varchar" MaxLength="5" />
     <Property Name="loaded_at_port_time" Type="datetime" />
     <Property Name="loaded_at_port_location" Type="varchar" MaxLength="5" />
-    <Property Name="vessel_arrival_at_port" Type="datetime" />
-    <Property Name="vessel_arrival_at_location" Type="varchar" MaxLength="5" />
+    <Property Name="vessel_arrival_at_port_time" Type="datetime" />
+    <Property Name="vessel_arrival_at_port_location" Type="varchar" MaxLength="5" />
     <Property Name="discharged_from_vessel_at_port_of_discharge_time" Type="datetime" />
     <Property Name="discharged_from_vessel_at_port_of_discharge_location" Type="varchar" MaxLength="5" />
     <Property Name="full_container_received_by_carrier_time" Type="datetime" />

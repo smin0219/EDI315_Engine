@@ -30,7 +30,6 @@
     <Property Name="container_idnum" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MBL_number" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="container_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="equipment_type" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="vessel_code" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
     <Property Name="vessel_name" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
     <Property Name="voyage_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -44,27 +43,33 @@
     <Property Name="lading_quantity" Type="Int32" />
     <Property Name="weight" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="volume" Type="Decimal" Precision="18" Scale="2" />
-    <Property Name="shipment_status_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-    <Property Name="shipment_status_datetime" Type="DateTime" Precision="3" />
     <Property Name="scheduled_sailing_date" Type="DateTime" Precision="3" />
     <Property Name="scheduled_discharge_date" Type="DateTime" Precision="3" />
-    <Property Name="place_of_receipt_location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="shipment_status_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_type" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="equipment_status_code" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="place_of_receipt_location_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="place_of_receipt_location_identifier" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="place_of_receipt_portname" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
     <Property Name="place_of_receipt_country" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="place_of_receipt_datetime" Type="DateTime" Precision="3" />
-    <Property Name="port_of_loading_location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="port_of_loading_location_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="port_of_loading_location_identifier" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="port_of_loading_portname" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
     <Property Name="port_of_loading_country" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="port_of_loading_datetime" Type="DateTime" Precision="3" />
-    <Property Name="port_of_discharge_location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="port_of_discharge_location_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="port_of_discharge_location_identifier" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="port_of_discharge_portname" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
     <Property Name="port_of_discharge_country" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="port_of_discharge_datetime" Type="DateTime" Precision="3" />
-    <Property Name="place_of_delivery_location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="place_of_delivery_location_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="place_of_delivery_location_identifier" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="place_of_delivery_portname" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
     <Property Name="place_of_delivery_country" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="place_of_delivery_datetime" Type="DateTime" Precision="3" />
-    <Property Name="MBL_destination_location" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MBL_destination_location_qualifier" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="MBL_destination_location_identifier" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="MBL_destination_portname" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
     <Property Name="MBL_destination_country" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
     <Property Name="MBL_destination_datetime" Type="DateTime" Precision="3" />
@@ -121,8 +126,8 @@
     <Property Name="departed_from_facility_location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="loaded_at_port_time" Type="DateTime" Precision="3" />
     <Property Name="loaded_at_port_location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-    <Property Name="vessel_arrival_at_port" Type="DateTime" Precision="3" />
-    <Property Name="vessel_arrival_at_location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="vessel_arrival_at_port_time" Type="DateTime" Precision="3" />
+    <Property Name="vessel_arrival_at_port_location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="discharged_from_vessel_at_port_of_discharge_time" Type="DateTime" Precision="3" />
     <Property Name="discharged_from_vessel_at_port_of_discharge_location" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="full_container_received_by_carrier_time" Type="DateTime" Precision="3" />

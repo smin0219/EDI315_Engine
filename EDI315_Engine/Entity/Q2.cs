@@ -15,9 +15,9 @@ namespace EDI315_Engine.Entity
         //Q203
         public string date { get; set; }
         //Q204
-        public DateTime scheduled_sailing_date { get; set; }
+        public string scheduled_sailing_date { get; set; }
         //Q205
-        public DateTime scheduled_discharge_date { get; set; }
+        public string scheduled_discharge_date { get; set; }
         //Q206
         public int landing_quantity { get; set; }
         //Q207

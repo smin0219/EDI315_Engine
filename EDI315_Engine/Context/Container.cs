@@ -23,7 +23,6 @@ namespace EDI315_Engine.Context
         public int container_idnum { get; set; }
         public string MBL_number { get; set; }
         public string container_number { get; set; }
-        public string equipment_type { get; set; }
         public string vessel_code { get; set; }
         public string vessel_name { get; set; }
         public string voyage_number { get; set; }
@@ -37,10 +36,11 @@ namespace EDI315_Engine.Context
         public Nullable<int> lading_quantity { get; set; }
         public Nullable<decimal> weight { get; set; }
         public Nullable<decimal> volume { get; set; }
-        public string shipment_status_code { get; set; }
-        public Nullable<System.DateTime> shipment_status_datetime { get; set; }
         public Nullable<System.DateTime> scheduled_sailing_date { get; set; }
         public Nullable<System.DateTime> scheduled_discharge_date { get; set; }
+        public string shipment_status_code { get; set; }
+        public string equipment_type { get; set; }
+        public string equipment_status_code { get; set; }
         public string place_of_receipt_location_qualifier { get; set; }
         public string place_of_receipt_location_identifier { get; set; }
         public string place_of_receipt_portname { get; set; }
@@ -119,8 +119,8 @@ namespace EDI315_Engine.Context
         public string departed_from_facility_location { get; set; }
         public Nullable<System.DateTime> loaded_at_port_time { get; set; }
         public string loaded_at_port_location { get; set; }
-        public Nullable<System.DateTime> vessel_arrival_at_port { get; set; }
-        public string vessel_arrival_at_location { get; set; }
+        public Nullable<System.DateTime> vessel_arrival_at_port_time { get; set; }
+        public string vessel_arrival_at_port_location { get; set; }
         public Nullable<System.DateTime> discharged_from_vessel_at_port_of_discharge_time { get; set; }
         public string discharged_from_vessel_at_port_of_discharge_location { get; set; }
         public Nullable<System.DateTime> full_container_received_by_carrier_time { get; set; }

@@ -67,8 +67,8 @@
           <ScalarProperty Name="full_container_received_by_carrier_time" ColumnName="full_container_received_by_carrier_time" />
           <ScalarProperty Name="discharged_from_vessel_at_port_of_discharge_location" ColumnName="discharged_from_vessel_at_port_of_discharge_location" />
           <ScalarProperty Name="discharged_from_vessel_at_port_of_discharge_time" ColumnName="discharged_from_vessel_at_port_of_discharge_time" />
-          <ScalarProperty Name="vessel_arrival_at_location" ColumnName="vessel_arrival_at_location" />
-          <ScalarProperty Name="vessel_arrival_at_port" ColumnName="vessel_arrival_at_port" />
+          <ScalarProperty Name="vessel_arrival_at_port_location" ColumnName="vessel_arrival_at_port_location" />
+          <ScalarProperty Name="vessel_arrival_at_port_time" ColumnName="vessel_arrival_at_port_time" />
           <ScalarProperty Name="loaded_at_port_location" ColumnName="loaded_at_port_location" />
           <ScalarProperty Name="loaded_at_port_time" ColumnName="loaded_at_port_time" />
           <ScalarProperty Name="departed_from_facility_location" ColumnName="departed_from_facility_location" />
@@ -125,27 +125,33 @@
           <ScalarProperty Name="MBL_destination_datetime" ColumnName="MBL_destination_datetime" />
           <ScalarProperty Name="MBL_destination_country" ColumnName="MBL_destination_country" />
           <ScalarProperty Name="MBL_destination_portname" ColumnName="MBL_destination_portname" />
-          <ScalarProperty Name="MBL_destination_location" ColumnName="MBL_destination_location" />
+          <ScalarProperty Name="MBL_destination_location_identifier" ColumnName="MBL_destination_location_identifier" />
+          <ScalarProperty Name="MBL_destination_location_qualifier" ColumnName="MBL_destination_location_qualifier" />
           <ScalarProperty Name="place_of_delivery_datetime" ColumnName="place_of_delivery_datetime" />
           <ScalarProperty Name="place_of_delivery_country" ColumnName="place_of_delivery_country" />
           <ScalarProperty Name="place_of_delivery_portname" ColumnName="place_of_delivery_portname" />
-          <ScalarProperty Name="place_of_delivery_location" ColumnName="place_of_delivery_location" />
+          <ScalarProperty Name="place_of_delivery_location_identifier" ColumnName="place_of_delivery_location_identifier" />
+          <ScalarProperty Name="place_of_delivery_location_qualifier" ColumnName="place_of_delivery_location_qualifier" />
           <ScalarProperty Name="port_of_discharge_datetime" ColumnName="port_of_discharge_datetime" />
           <ScalarProperty Name="port_of_discharge_country" ColumnName="port_of_discharge_country" />
           <ScalarProperty Name="port_of_discharge_portname" ColumnName="port_of_discharge_portname" />
-          <ScalarProperty Name="port_of_discharge_location" ColumnName="port_of_discharge_location" />
+          <ScalarProperty Name="port_of_discharge_location_identifier" ColumnName="port_of_discharge_location_identifier" />
+          <ScalarProperty Name="port_of_discharge_location_qualifier" ColumnName="port_of_discharge_location_qualifier" />
           <ScalarProperty Name="port_of_loading_datetime" ColumnName="port_of_loading_datetime" />
           <ScalarProperty Name="port_of_loading_country" ColumnName="port_of_loading_country" />
           <ScalarProperty Name="port_of_loading_portname" ColumnName="port_of_loading_portname" />
-          <ScalarProperty Name="port_of_loading_location" ColumnName="port_of_loading_location" />
+          <ScalarProperty Name="port_of_loading_location_identifier" ColumnName="port_of_loading_location_identifier" />
+          <ScalarProperty Name="port_of_loading_location_qualifier" ColumnName="port_of_loading_location_qualifier" />
           <ScalarProperty Name="place_of_receipt_datetime" ColumnName="place_of_receipt_datetime" />
           <ScalarProperty Name="place_of_receipt_country" ColumnName="place_of_receipt_country" />
           <ScalarProperty Name="place_of_receipt_portname" ColumnName="place_of_receipt_portname" />
-          <ScalarProperty Name="place_of_receipt_location" ColumnName="place_of_receipt_location" />
+          <ScalarProperty Name="place_of_receipt_location_identifier" ColumnName="place_of_receipt_location_identifier" />
+          <ScalarProperty Name="place_of_receipt_location_qualifier" ColumnName="place_of_receipt_location_qualifier" />
+          <ScalarProperty Name="equipment_status_code" ColumnName="equipment_status_code" />
+          <ScalarProperty Name="equipment_type" ColumnName="equipment_type" />
+          <ScalarProperty Name="shipment_status_code" ColumnName="shipment_status_code" />
           <ScalarProperty Name="scheduled_discharge_date" ColumnName="scheduled_discharge_date" />
           <ScalarProperty Name="scheduled_sailing_date" ColumnName="scheduled_sailing_date" />
-          <ScalarProperty Name="shipment_status_datetime" ColumnName="shipment_status_datetime" />
-          <ScalarProperty Name="shipment_status_code" ColumnName="shipment_status_code" />
           <ScalarProperty Name="volume" ColumnName="volume" />
           <ScalarProperty Name="weight" ColumnName="weight" />
           <ScalarProperty Name="lading_quantity" ColumnName="lading_quantity" />
@@ -159,7 +165,6 @@
           <ScalarProperty Name="voyage_number" ColumnName="voyage_number" />
           <ScalarProperty Name="vessel_name" ColumnName="vessel_name" />
           <ScalarProperty Name="vessel_code" ColumnName="vessel_code" />
-          <ScalarProperty Name="equipment_type" ColumnName="equipment_type" />
           <ScalarProperty Name="container_number" ColumnName="container_number" />
           <ScalarProperty Name="MBL_number" ColumnName="MBL_number" />
           <ScalarProperty Name="container_idnum" ColumnName="container_idnum" />

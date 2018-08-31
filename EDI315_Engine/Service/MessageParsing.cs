@@ -49,7 +49,6 @@ namespace EDI315_Engine.Service
             string[] currentRowTemp = null;
             string[] currentRow = new string[30];
             string header = "";
-            int count = 1;
             int convertToInt = 0;
             decimal convertToDecimal = 0;
 
@@ -128,7 +127,7 @@ namespace EDI315_Engine.Service
                             Int32.TryParse(currentRow[2], out convertToInt);
                             b4.inquiry_request_number = convertToInt;
                             b4.shipment_status_code = currentRow[3];
-                            b4.shipment_status_datetime = DateTime.Parse(currentRow[4]);
+                            b4.date = currentRow[4];
                             b4.status_time = currentRow[5];
                             b4.status_location = currentRow[6];
                             b4.equipment_initial = currentRow[7];
@@ -159,8 +158,8 @@ namespace EDI315_Engine.Service
                             q2.vessel_code = currentRow[1];
                             q2.country_code = currentRow[2];
                             q2.date = currentRow[3];
-                            q2.scheduled_sailing_date = DateTime.Parse(currentRow[4]);
-                            q2.scheduled_discharge_date = DateTime.Parse(currentRow[5]);
+                            q2.scheduled_sailing_date = currentRow[4];
+                            q2.scheduled_discharge_date = currentRow[5];
                             Int32.TryParse(currentRow[6], out convertToInt);
                             q2.landing_quantity = convertToInt;
                             Decimal.TryParse(currentRow[7], out convertToDecimal);
@@ -218,6 +217,24 @@ namespace EDI315_Engine.Service
             return result;
         }
 
+        public DateTime changeDateTimeFormat(string date, string time)
+        {
+            string dateTime = null;
+
+            date = date.Substring(0, 4) + "-" + date.Substring(4, 2) + "-" + date.Substring(6);
+
+            if (time != null)
+            {
+                time = time.Substring(0, 2) + ":" + time.Substring(2, 2);
+                dateTime = date + "T" + time;
+            }
+            else
+            {
+                dateTime = date;
+            }
+
+            return DateTime.Parse(dateTime);
+        }
         /// <summary>
         /// Update all data from entities to created/existing row in DB.
         /// </summary>
@@ -226,8 +243,8 @@ namespace EDI315_Engine.Service
         {
             string MBLRefId = null;
             string containerRefId = null;
-            string isMBLExist = null;
-            string isContainerExist = null;
+            List<Container> isMBLExist = null;
+            List<Container> isContainerExist = null;
             bool isBMChecked = false;
             bool isEQChecked = false;
 
@@ -239,21 +256,33 @@ namespace EDI315_Engine.Service
             
             foreach(N9 n9 in n9_list)
             {
+                /*
+                 * If BM number and EQ number is found, break from loop 
+                 */
                 if (isBMChecked == true && isEQChecked == true)
                 {
                     break;
                 }
+
+                /*
+                 * Check whether there is a row that has same MBL number or not in DB
+                 */  
+
                 if(n9.reference_identification_qualifier == "BM")
                 {
                     MBLRefId = n9.reference_identification;
-                    isMBLExist = (context.Container.Where(x => x.MBL_number == MBLRefId).Select(x => x.MBL_number)).SingleOrDefault();
+                    isMBLExist = (context.Container.Where(x => x.MBL_number == MBLRefId)).ToList();
                     isBMChecked = true;
                 }
-                
-                if (n9.reference_identification_qualifier == "EQ")
+
+                /*
+                 * Check whether there is a row that has same MBL number AND container number or not in DB
+                 */
+
+                if (n9.reference_identification_qualifier == "EQ" && isMBLExist != null)
                 {
                     containerRefId = n9.reference_identification;
-                    isContainerExist = (context.Container.Where(x => x.MBL_number == MBLRefId && x.container_number == containerRefId).Select(x => x.container_number)).SingleOrDefault();
+                    isContainerExist = (context.Container.Where(x => x.MBL_number == MBLRefId && x.container_number == containerRefId)).ToList();
                     isEQChecked = true;
                 }
             }
@@ -262,61 +291,239 @@ namespace EDI315_Engine.Service
              * Same MBL has been processed before with this MBL number.
              * Update data into the existing MBL. 
              */
-            
 
-            if (isMBLExist != null)
-            {
-                // If the data has same MBL and container number in DB.
-                if (isContainerExist != null)
-                {
-                    container = (context.Container.Where(x => x.MBL_number == MBLRefId && x.container_number == containerRefId)).SingleOrDefault();
-                    container = UpdateEntities(container);
-                }
-                // If the data has same MBL number only.
-                else
-                {
-                    container = (context.Container.Where(x => x.MBL_number == MBLRefId)).SingleOrDefault();
-                    container = UpdateEntities(container);
-                }
-            }
-            
-            /* 
-             * If the data does not have same MBL and container number in DB.
-             * Create a row with this MBL number and insert data accordingly. 
-             */
 
-            else
-            {
-                if(containerRefId == null)
-                {
-                    container = new Container { MBL_number = MBLRefId, created_date = DateTime.Now };
-                    container = UpdateEntities(container);
-                }
-                else
-                {
-                    container = new Container { MBL_number = MBLRefId, container_number = containerRefId, created_date = DateTime.Now };
-                    container = UpdateEntities(container);
-                }   
-            }
-
-            context.Container.Add(container);
-            context.SaveChanges();
         }
-
         private Container UpdateEntities(Container container)
         {
             container = UpdateB4(container);
             container = UpdateN9(container);
             container = UpdateQ2(container);
-            container = UpdateR4(container);
+            //container = UpdateR4(container);
             return container;
         }
-
         private Container UpdateB4(Container container)
         {
-            container.equipment_type = b4.equipment_type;
             container.shipment_status_code = b4.shipment_status_code;
-            container.shipment_status_datetime = b4.shipment_status_datetime;
+            container.equipment_type = b4.equipment_type;
+            container.equipment_status_code = b4.equipment_status_code;
+
+            switch (b4.shipment_status_code)
+            {
+
+                case "D":
+                    container.actual_door_delivery_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.actual_door_delivery_location = b4.status_location;
+                    break;
+                case "I":
+                    container.arrival_at_first_port_of_load_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrival_at_first_port_of_load_location = b4.status_location;
+                    break;
+                case "AE":
+                    container.loaded_on_board_at_first_port_of_load_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_on_board_at_first_port_of_load_location = b4.status_location;
+                    break;
+                case "AF":
+                    container.actual_door_pickup_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.actual_door_pickup_location = b4.status_location;
+                    break;
+                case "AL":
+                    container.first_loaded_on_rail_under_outbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.first_loaded_on_rail_under_outbound_location = b4.status_location;
+                    break;
+                case "AM":
+                    container.loaded_on_truck_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_on_truck_location = b4.status_location;
+                    break;
+                case "AR":
+                    container.arrival_at_last_intermodal_hub_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrival_at_last_intermodal_hub_location = b4.status_location;
+                    break;
+                case "CR":
+                    container.carrier_released_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.carrier_released_location = b4.status_location;
+                    break;
+                case "CT":
+                    container.customs_released_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.customs_released_location = b4.status_location;
+                    break;
+                case "CU":
+                    container.carrier_and_customs_released_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.carrier_and_customs_released_location = b4.status_location;
+                    break;
+                case "EE":
+                    container.empty_container_picked_up_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.empty_container_picked_up_location = b4.status_location;
+                    break;
+                case "NO":
+                    container.freight_charges_settled_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.freight_charges_settled_location = b4.status_location;
+                    break;
+                case "OA":
+                    container.full_container_received_by_carrier_at_origin_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.full_container_received_by_carrier_at_origin_location = b4.status_location;
+                    break;
+                case "PA":
+                    container.customs_hold_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.customs_hold_location = b4.status_location;
+                    break;
+                case "RD":
+                    container.empty_container_returned_to_carrier_at_destination_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.empty_container_returned_to_carrier_at_destination_location = b4.status_location;
+                    break;
+                case "RL":
+                    container.departure_from_first_intermodal_hub_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.departure_from_first_intermodal_hub_location = b4.status_location;
+                    break;
+                case "UR":
+                    container.last_deramp_under_inbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.last_deramp_under_inbound_location = b4.status_location;
+                    break;
+                case "UV":
+                    container.discharged_from_vessel_at_last_port_of_discharged_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_from_vessel_at_last_port_of_discharged_location = b4.status_location;
+                    break;
+                case "VA":
+                    container.last_vessel_arrival_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.last_vessel_arrival_location = b4.status_location;
+                    break;
+                case "VD":
+                    container.first_vessel_departure_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.first_vessel_departure_location = b4.status_location;
+                    break;
+                case "W1":
+                    container.gate_out_full_at_inland_terminal_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.gate_out_full_at_inland_terminal_location = b4.status_location;
+                    break;
+                case "W2":
+                    container.gate_in_full_at_inland_terminal_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.gate_in_full_at_inland_terminal_location = b4.status_location;
+                    break;
+                case "W3":
+                    container.equipment_delayed_due_to_transportation_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.equipment_delayed_due_to_transportation_location = b4.status_location;
+                    break;
+                case "W4":
+                    container.arrived_at_facility_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrived_at_facility_location = b4.status_location;
+                    break;
+                case "W5":
+                    container.departed_from_facility_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.departed_from_facility_location = b4.status_location;
+                    break;
+                case "W6":
+                    container.loaded_at_port_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_at_port_location = b4.status_location;
+                    break;
+                case "W7":
+                    container.vessel_arrival_at_port_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.vessel_arrival_at_port_location = b4.status_location;
+                    break;
+                case "W8":
+                    container.discharged_from_vessel_at_port_of_discharge_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_from_vessel_at_port_of_discharge_location = b4.status_location;
+                    break;
+                case "X1":
+                    container.full_container_received_by_carrier_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.full_container_received_by_carrier_location = b4.status_location;
+                    break;
+                case "X2":
+                    container.vessel_departure_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.vessel_departure_location = b4.status_location;
+                    break;
+                case "X3":
+                    container.container_repacked_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_repacked_location = b4.status_location;
+                    break;
+                case "X4":
+                    container.container_vanned_at_origin_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_vanned_at_origin_location = b4.status_location;
+                    break;
+                case "X5":
+                    container.container_devanned_at_origin_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_devanned_at_origin_location = b4.status_location;
+                    break;
+                case "X6":
+                    container.container_vanned_at_destination_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_vanned_at_destination_location = b4.status_location;
+                    break;
+                case "X7":
+                    container.container_devanned_at_destination_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_devanned_at_destination_location = b4.status_location;
+                    break;
+                case "X8":
+                    container.container_transferred_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_transferred_location = b4.status_location;
+                    break;
+                case "X9":
+                    container.carrier_held_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.carrier_held_location = b4.status_location;
+                    break;
+                case "Y1":
+                    container.container_available_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_available_location = b4.status_location;
+                    break;
+                case "Y2":
+                    container.arrival_at_intermodal_hub_by_rail_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.arrival_at_intermodal_hub_by_rail_location = b4.status_location;
+                    break;
+                case "Y3":
+                    container.loaded_on_rail_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_on_rail_location = b4.status_location;
+                    break;
+                case "Y4":
+                    container.rail_move_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.rail_move_location = b4.status_location;
+                    break;
+                case "Y5":
+                    container.loaded_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_location = b4.status_location;
+                    break;
+                case "Y7":
+                    container.discharged_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_location = b4.status_location;
+                    break;
+                case "Y9":
+                    container.container_picked_up_from_port_of_discharge_transhipment_port_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.container_picked_up_from_port_of_discharge_transhipment_port_location = b4.status_location;
+                    break;
+                case "Z1":
+                    container.last_deramp_under_outbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.last_deramp_under_outbound_location = b4.status_location;
+                    break;
+                case "Z2":
+                    container.transhipment_vessel_arrival_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.transhipment_vessel_arrival_location = b4.status_location;
+                    break;
+                case "Z3":
+                    container.loaded_at_port_of_transhipment_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.loaded_at_port_of_transhipment_location = b4.status_location;
+                    break;
+                case "Z4":
+                    container.discharged_at_port_of_transhipment_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.discharged_at_port_of_transhipment_location = b4.status_location;
+                    break;
+                case "Z5":
+                    container.transhipment_vessel_departure_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.transhipment_vessel_departure_location = b4.status_location;
+                    break;
+                case "Z6":
+                    container.intermodal_departure_from_last_port_of_discharge_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.intermodal_departure_from_last_port_of_discharge_location = b4.status_location;
+                    break;
+                case "Z7":
+                    container.first_loaded_on_rail_under_inbound_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.first_loaded_on_rail_under_inbound_location = b4.status_location;
+                    break;
+                case "Z8":
+                    container.picked_up_at_final_destination_for_delivery_time = changeDateTimeFormat(b4.date, b4.status_time);
+                    container.picked_up_at_final_destination_for_delivery_location = b4.status_location;
+                    break;
+                default:
+                    string logMsg = util.buildLogMsg("UpdateB4", "Invalid format: shipment status code");
+                    util.insertLog_text(logMsg);
+                    break;
+            }
 
             return container;
         }
@@ -363,14 +570,14 @@ namespace EDI315_Engine.Service
         }
         private Container UpdateQ2(Container container)
         {
-            container.vessel_code = q2.vessel_code;
+            container.vessel_code = q2.vessel_code_qualifier;
             container.vessel_name = q2.vessel_name;
             container.voyage_number = q2.voyage_number;
             container.lading_quantity = q2.landing_quantity;
             container.weight = q2.weight;
             container.volume = q2.volume;
-            container.scheduled_sailing_date = q2.scheduled_sailing_date;
-            container.scheduled_discharge_date = q2.scheduled_discharge_date;
+            container.scheduled_sailing_date = changeDateTimeFormat(q2.scheduled_sailing_date, null);
+            container.scheduled_discharge_date = changeDateTimeFormat(q2.scheduled_discharge_date, null);
 
             return container;
         }
@@ -409,11 +616,10 @@ namespace EDI315_Engine.Service
                         }
 
                         container.place_of_receipt_country = r4.country_code;
-                        container.place_of_receipt_datetime = DateTime.Parse(r4.dtm.date + r4.dtm.time);
+                        container.place_of_receipt_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
                     case "L":
-
                         //If location qualifier presents, location identifier must be present also.
                         container.port_of_loading_location_qualifier = r4.location_qualifier;
 
@@ -438,23 +644,21 @@ namespace EDI315_Engine.Service
                         }
 
                         container.port_of_loading_country = r4.country_code;
-                        container.port_of_loading_datetime = DateTime.Parse(r4.dtm.date + r4.dtm.time);
+                        container.port_of_loading_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
-
-                        /// 여기까지 했음 container. 이름 바꾸는 것
 
                     case "D":
                         //If location qualifier presents, location identifier must be present also.
-                        container.place_of_receipt_location_qualifier = r4.location_qualifier;
+                        container.port_of_discharge_location_qualifier = r4.location_qualifier;
 
                         if (r4.location_identifier != null)
                         {
-                            container.place_of_receipt_location_identifier = r4.location_identifier;
+                            container.port_of_discharge_location_identifier = r4.location_identifier;
                             isLocationIdentifierExist = true;
                         }
                         if (r4.port_name != null)
                         {
-                            container.place_of_receipt_portname = r4.port_name;
+                            container.port_of_discharge_portname = r4.port_name;
                             isPortNameExist = true;
                         }
 
@@ -467,13 +671,65 @@ namespace EDI315_Engine.Service
                             break;
                         }
 
-                        container.place_of_receipt_country = r4.country_code;
-                        container.place_of_receipt_datetime = DateTime.Parse(r4.dtm.date + r4.dtm.time);
+                        container.port_of_discharge_country = r4.country_code;
+                        container.port_of_discharge_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
                         break;
 
-                    case "E": break;
+                    case "E": 
+                        //If location qualifier presents, location identifier must be present also.
+                        container.place_of_delivery_location_qualifier = r4.location_qualifier;
 
-                    case "M": break;
+                        if (r4.location_identifier != null)
+                        {
+                            container.place_of_delivery_location_identifier = r4.location_identifier;
+                            isLocationIdentifierExist = true;
+                        }
+                        if (r4.port_name != null)
+                        {
+                            container.place_of_delivery_portname = r4.port_name;
+                            isPortNameExist = true;
+                        }
+
+                        //Either one of these or both must exist; Otherwise invalid format
+                        if (isLocationIdentifierExist == false && isPortNameExist == false)
+                        {
+                            logMsg = util.buildLogMsg("UpdateR4", "Invalid format: " +
+                                "Both location identification and port name do not exist");
+                            util.insertLog_text(logMsg);
+                            break;
+                        }
+
+                        container.place_of_delivery_country = r4.country_code;
+                        container.place_of_delivery_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        break;
+
+                    case "M": 
+                        //If location qualifier presents, location identifier must be present also.
+                        container.MBL_destination_location_qualifier = r4.location_qualifier;
+
+                        if (r4.location_identifier != null)
+                        {
+                            container.MBL_destination_location_identifier = r4.location_identifier;
+                            isLocationIdentifierExist = true;
+                        }
+                        if (r4.port_name != null)
+                        {
+                            container.MBL_destination_portname = r4.port_name;
+                            isPortNameExist = true;
+                        }
+
+                        //Either one of these or both must exist; Otherwise invalid format
+                        if (isLocationIdentifierExist == false && isPortNameExist == false)
+                        {
+                            logMsg = util.buildLogMsg("UpdateR4", "Invalid format: " +
+                                "Both location identifier and port name do not exist");
+                            util.insertLog_text(logMsg);
+                            break;
+                        }
+
+                        container.MBL_destination_country = r4.country_code;
+                        container.MBL_destination_datetime = changeDateTimeFormat(r4.dtm.date, r4.dtm.time);
+                        break;
 
                     case "5": break;
 
@@ -482,9 +738,6 @@ namespace EDI315_Engine.Service
                                 "There is no location qualifier in the message");
                         util.insertLog_text(logMsg);
                         break;
-
-
-
                 }
             }
             return container;
